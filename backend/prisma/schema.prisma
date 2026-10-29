@@ -1,0 +1,296 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// ADMIN — do'kon egasi (barcha huquqlar), STAFF — xodim (buyurtma, mahsulot va izohlar bilan ishlaydi).
+enum Role {
+  CUSTOMER
+  ADMIN
+  STAFF
+}
+
+enum Language {
+  UZ
+  EN
+  RU
+}
+
+enum ThemeMode {
+  LIGHT
+  DARK
+  SYSTEM
+}
+
+enum OrderStatus {
+  PENDING
+  ACCEPTED
+  CANCELLED
+  READY
+  ON_THE_WAY
+  DELIVERED
+}
+
+enum PaymentMethod {
+  CASH
+  ONLINE
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+  REFUNDED
+}
+
+enum FulfillmentType {
+  PICKUP
+  DELIVERY
+}
+
+enum VariantGroup {
+  SIZE
+  CREAM
+  INSCRIPTION
+}
+
+model User {
+  id          String    @id @default(cuid())
+  firebaseUid String?   @unique
+  email       String    @unique
+  firstName   String?
+  lastName    String?
+  phone       String?
+  address     String?
+  landmark    String?
+  language    Language  @default(UZ)
+  theme       ThemeMode @default(SYSTEM)
+  role        Role      @default(CUSTOMER)
+  isProfileComplete Boolean @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  orders       Order[]
+  reviews      Review[]
+  favorites    Favorite[]
+  deviceTokens DeviceToken[]
+  stockSubscriptions StockSubscription[]
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  nameUz    String
+  nameEn    String
+  nameRu    String
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products Product[]
+}
+
+model Product {
+  id            String   @id @default(cuid())
+  nameUz        String
+  nameEn        String
+  nameRu        String
+  descriptionUz String   @default("")
+  descriptionEn String   @default("")
+  descriptionRu String   @default("")
+  ingredientsUz String   @default("")
+  ingredientsEn String   @default("")
+  ingredientsRu String   @default("")
+  allergensUz   String   @default("")
+  allergensEn   String   @default("")
+  allergensRu   String   @default("")
+  price         Decimal  @db.Decimal(12, 2)
+  stock         Int      @default(0)
+  images        String[]
+  isActive      Boolean  @default(true)
+  categoryId    String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  category   Category?       @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  variants   ProductVariant[]
+  orderItems OrderItem[]
+  reviews    Review[]
+  favorites  Favorite[]
+  stockSubscriptions StockSubscription[]
+
+  @@index([categoryId])
+  @@index([isActive])
+}
+
+model ProductVariant {
+  id         String       @id @default(cuid())
+  productId  String
+  group      VariantGroup
+  nameUz     String
+  nameEn     String
+  nameRu     String
+  priceDelta Decimal      @default(0) @db.Decimal(12, 2)
+  sortOrder  Int          @default(0)
+  isActive   Boolean      @default(true)
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+}
+
+model PromoCode {
+  id              String    @id @default(cuid())
+  code            String    @unique
+  discountPercent Int?
+  discountAmount  Decimal?  @db.Decimal(12, 2)
+  expiresAt       DateTime?
+  usageLimit      Int?
+  usedCount       Int       @default(0)
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+
+  orders Order[]
+}
+
+model Order {
+  id            String          @id @default(cuid())
+  number        Int             @unique @default(autoincrement())
+  userId        String
+  status        OrderStatus     @default(PENDING)
+  paymentMethod PaymentMethod
+  paymentStatus PaymentStatus   @default(UNPAID)
+  fulfillment   FulfillmentType @default(PICKUP)
+  scheduledAt   DateTime?
+  customerNote  String?
+  address       String?
+  phone         String?
+  subtotal      Decimal         @db.Decimal(12, 2)
+  deliveryFee   Decimal         @default(0) @db.Decimal(12, 2)
+  discount      Decimal         @default(0) @db.Decimal(12, 2)
+  total         Decimal         @db.Decimal(12, 2)
+  promoCodeId   String?
+  cancelReason  String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  user      User        @relation(fields: [userId], references: [id])
+  promoCode PromoCode?  @relation(fields: [promoCodeId], references: [id], onDelete: SetNull)
+  items     OrderItem[]
+  payments  Payment[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  productId   String?
+  productName String
+  options     Json?
+  unitPrice   Decimal @db.Decimal(12, 2)
+  quantity    Int
+  lineTotal   Decimal @db.Decimal(12, 2)
+
+  order   Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  userId     String
+  productId  String
+  rating     Int
+  text       String?
+  isHidden   Boolean  @default(false)
+  adminReply String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@index([productId])
+}
+
+model Favorite {
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([userId, productId])
+}
+
+model DeviceToken {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  platform  String
+  language  Language @default(UZ)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+enum PaymentTxnStatus {
+  PENDING
+  PREPARED
+  PAID
+  FAILED
+  REFUNDED
+}
+
+/// Onlayn to'lov tranzaksiyasi (to'lov tizimidan kelgan ma'lumotlar bilan).
+model Payment {
+  id                String           @id @default(cuid())
+  orderId           String
+  provider          String
+  amount            Decimal          @db.Decimal(12, 2)
+  status            PaymentTxnStatus @default(PENDING)
+  providerTxnId     String?
+  providerPaymentId String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id])
+
+  @@unique([provider, providerTxnId])
+  @@index([orderId])
+}
+
+
+/// «Mavjud bo'lganda xabar bering»: tugagan mahsulot qaytganda mijozga bildirishnoma boradi.
+model StockSubscription {
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@id([userId, productId])
+  @@index([productId])
+}
+
+/// Do'kon sozlamalari (bitta qator, id = "main").
+model StoreSettings {
+  id                String    @id
+  /// Shu vaqtgacha yangi buyurtma qabul qilinmaydi (admin «bugun qabul qilmaymiz» tugmasi).
+  ordersPausedUntil DateTime?
+  updatedAt         DateTime  @updatedAt
+}

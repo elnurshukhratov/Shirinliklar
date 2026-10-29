@@ -1,0 +1,595 @@
+{
+  "@@locale": "uz",
+  "appTitle": "Shirinliklar",
+  "commonOk": "OK",
+  "commonCancel": "Bekor qilish",
+  "commonSave": "Saqlash",
+  "commonDelete": "O'chirish",
+  "commonEdit": "Tahrirlash",
+  "commonRetry": "Qayta urinish",
+  "commonClose": "Yopish",
+  "commonConfirm": "Tasdiqlash",
+  "commonBack": "Orqaga",
+  "commonSearch": "Qidirish",
+  "commonLoading": "Yuklanmoqda…",
+  "fieldRequired": "Bu maydonni to'ldiring",
+  "emptyTitle": "Hozircha bo'sh",
+  "emptyMessage": "Bu yerda hali hech narsa yo'q.",
+  "noResultsTitle": "Hech narsa topilmadi",
+  "noResultsMessage": "Boshqa so'z bilan qidirib ko'ring.",
+  "errorGenericTitle": "Nimadir xato ketdi",
+  "errorGenericMessage": "Iltimos, birozdan keyin qayta urinib ko'ring.",
+  "errorNetworkTitle": "Internet aloqasi yo'q",
+  "errorNetworkMessage": "Ulanishni tekshirib, qayta urinib ko'ring.",
+  "errorServerTitle": "Server javob bermayapti",
+  "errorServerMessage": "Xatolik bizning tomonda. Birozdan keyin qayta urinib ko'ring.",
+  "errorUnauthorizedMessage": "Davom etish uchun qaytadan kiring.",
+  "errorForbiddenMessage": "Sizda bu amal uchun ruxsat yo'q.",
+  "errorNotFoundMessage": "So'ralgan ma'lumot topilmadi.",
+  "errorLastAdminMessage": "Siz oxirgi adminsiz, hisobni o'chirib bo'lmaydi.",
+  "errorActiveOrdersMessage": "Faol buyurtmalaringiz bor. Ular yakunlangach hisobni o'chirishingiz mumkin.",
+  "errorImageTypeMessage": "Faqat JPG, PNG yoki WebP rasm yuklash mumkin.",
+  "errorImageSizeMessage": "Rasm hajmi 5 MB dan oshmasligi kerak.",
+  "settingsTitle": "Sozlamalar",
+  "settingsLanguage": "Til",
+  "settingsTheme": "Mavzu",
+  "themeSystem": "Tizim",
+  "themeLight": "Kun",
+  "themeDark": "Tun",
+  "languageUz": "O'zbekcha",
+  "languageEn": "English",
+  "languageRu": "Русский",
+  "priceSum": "{amount} so'm",
+  "@priceSum": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "piecesCount": "{count} dona",
+  "@piecesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "authLoginTitle": "Xush kelibsiz!",
+  "authLoginSubtitle": "Shirinliklarni tanlang, buyurtma bering va tayyor bo'lganda olib keting.",
+  "authContinueWithGoogle": "Google orqali kirish",
+  "authSignInFailed": "Kirib bo'lmadi. Qayta urinib ko'ring.",
+  "authSignOut": "Chiqish",
+  "onboardingTitle": "Keling, tanishamiz",
+  "onboardingSubtitle": "Buyurtmani tez rasmiylashtirish uchun ma'lumotlaringizni bir marta kiriting.",
+  "profileTitle": "Profil",
+  "profileEditTitle": "Profilni tahrirlash",
+  "profileFirstName": "Ism",
+  "profileLastName": "Familiya",
+  "profilePhone": "Telefon raqami",
+  "profilePhoneHint": "+998 90 123 45 67",
+  "profileAddress": "Manzil",
+  "profileAddressHint": "Shahar, ko'cha, uy",
+  "profileLandmark": "Mo'ljal",
+  "profileLandmarkHint": "Masalan, supermarket yonida",
+  "profileNotSet": "Kiritilmagan",
+  "profileSaved": "Profil saqlandi",
+  "profileRoleAdmin": "Admin",
+  "profileAdminPanel": "Admin panel",
+  "profileDeleteAccount": "Hisobni o'chirish",
+  "profileDeleteTitle": "Hisobni o'chirasizmi?",
+  "profileDeleteMessage": "Shaxsiy ma'lumotlaringiz, sevimlilar va sharhlaringiz o'chiriladi. Bu amalni qaytarib bo'lmaydi.",
+  "phoneInvalid": "Telefon raqamini to'g'ri kiriting",
+  "adminPanelTitle": "Admin panel",
+  "adminPanelPlaceholder": "Mahsulotlar va buyurtmalarni boshqarish bo'limlari keyingi bosqichlarda qo'shiladi.",
+  "adminTabProducts": "Mahsulotlar",
+  "adminTabCategories": "Toifalar",
+  "adminShowHidden": "Yashirinlarni ko'rsatish",
+  "adminProductsEmptyTitle": "Mahsulotlar yo'q",
+  "adminProductsEmptyMessage": "Birinchi shirinlikni qo'shing.",
+  "adminAddProduct": "Mahsulot qo'shish",
+  "adminProductNew": "Yangi mahsulot",
+  "adminProductEdit": "Mahsulotni tahrirlash",
+  "adminBadgeHidden": "Yashirin",
+  "adminBadgeOutOfStock": "Tugagan",
+  "adminHide": "Yashirish",
+  "adminShow": "Ko'rsatish",
+  "adminStockCount": "Omborda: {count}",
+  "@adminStockCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "adminDeleteProductTitle": "Mahsulotni o'chirasizmi?",
+  "adminDeleteProductMessage": "Mahsulot va uning rasmlari butunlay o'chiriladi. Oldingi buyurtmalarda nomi saqlanib qoladi.",
+  "adminProductSaved": "Mahsulot saqlandi",
+  "adminProductDeleted": "Mahsulot o'chirildi",
+  "adminFieldName": "Nomi",
+  "adminFieldDescription": "Izoh",
+  "adminFieldIngredients": "Tarkibi",
+  "adminFieldAllergens": "Allergenlar",
+  "adminFieldPrice": "Narxi (so'm)",
+  "adminFieldStock": "Omborda (dona)",
+  "adminFieldCategory": "Toifa",
+  "adminNoCategory": "Toifasiz",
+  "adminFieldVisible": "Mijozlarga ko'rsatish",
+  "adminFillAllLanguages": "Nomlarni uchala tilda to'ldiring",
+  "adminNumberInvalid": "Raqamni to'g'ri kiriting",
+  "adminImages": "Rasmlar",
+  "adminImagesHint": "Ko'pi bilan {count} ta rasm. Birinchisi asosiy bo'ladi, tartibni o'zgartirish uchun rasmni ushlab suring.",
+  "@adminImagesHint": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "adminMainImage": "Asosiy",
+  "adminVariants": "Variantlar",
+  "adminAddVariant": "Variant qo'shish",
+  "adminVariantGroup": "Turi",
+  "adminVariantSize": "O'lcham",
+  "adminVariantCream": "Krem turi",
+  "adminVariantInscription": "Yozuv",
+  "adminVariantName": "Variant nomi",
+  "adminVariantPriceDelta": "Narx farqi (so'm)",
+  "adminVariantPriceDeltaHint": "Masalan, 20000 yoki -5000",
+  "adminCategoryNew": "Yangi toifa",
+  "adminCategoryEdit": "Toifani tahrirlash",
+  "adminCategoriesEmptyTitle": "Toifalar yo'q",
+  "adminCategoriesEmptyMessage": "Mahsulotlarni guruhlash uchun toifa qo'shing.",
+  "adminAddCategory": "Toifa qo'shish",
+  "adminCategoryProducts": "{count} ta mahsulot",
+  "@adminCategoryProducts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "adminCategorySortOrder": "Tartib raqami",
+  "adminCategoryDeleteTitle": "Toifani o'chirasizmi?",
+  "adminCategoryDeleteMessage": "Undagi mahsulotlar o'chmaydi, toifasiz qoladi.",
+  "adminCategorySaved": "Toifa saqlandi",
+  "adminCategoryDeleted": "Toifa o'chirildi",
+  "catalogSearchHint": "Shirinlik qidirish",
+  "catalogAllCategories": "Hammasi",
+  "catalogEmptyTitle": "Shirinliklar hali yo'q",
+  "catalogEmptyMessage": "Tez orada yangilari qo'shiladi.",
+  "catalogOutOfStock": "Tugagan",
+  "productAddToCart": "Savatga qo'shish",
+  "productTotal": "Jami",
+  "productDescription": "Tavsif",
+  "productIngredients": "Tarkibi",
+  "productAllergens": "Allergenlar",
+  "productNoReviews": "Hali baho yo'q",
+  "productReviewsCount": "{count} ta baho",
+  "@productReviewsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "productInStock": "Mavjud: {count} dona",
+  "@productInStock": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "cartTitle": "Savat",
+  "cartEmptyTitle": "Savat bo'sh",
+  "cartEmptyMessage": "Yoqqan shirinliklarni tanlab, savatga qo'shing.",
+  "cartGoToCatalog": "Katalogga o'tish",
+  "cartAdded": "Savatga qo'shildi",
+  "cartOpen": "Savat",
+  "cartStockLimit": "Omborda faqat {count} dona bor",
+  "@cartStockLimit": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "cartRemovedNotice": "Tugagan yoki yashirilgan mahsulotlar savatdan chiqarildi: {names}",
+  "@cartRemovedNotice": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "cartReducedNotice": "Ba'zi mahsulotlar miqdori ombordagi qoldiqqa moslab kamaytirildi.",
+  "cartRemoveItem": "Savatdan olib tashlash",
+  "cartCheckout": "Rasmiylashtirish",
+  "checkoutTitle": "Buyurtmani rasmiylashtirish",
+  "checkoutOrderSection": "Buyurtmangiz",
+  "checkoutScheduleSection": "Qachonga kerak?",
+  "checkoutSchedulePick": "Sana va vaqtni tanlang",
+  "checkoutScheduleRequired": "Sana va vaqtni tanlang",
+  "checkoutScheduleTooSoon": "Buyurtma kamida {minutes} daqiqa oldin berilishi kerak",
+  "@checkoutScheduleTooSoon": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "checkoutFulfillmentSection": "Qanday olasiz?",
+  "checkoutAddress": "Yetkazish manzili",
+  "checkoutNote": "Izoh",
+  "checkoutNoteHint": "Masalan, yong'oqsiz bo'lsin",
+  "checkoutPaymentSection": "To'lov usuli",
+  "checkoutSubtotal": "Mahsulotlar",
+  "checkoutDeliveryFee": "Yetkazib berish",
+  "checkoutPlaceOrder": "Buyurtma berish",
+  "fulfillmentPickup": "Olib ketish",
+  "fulfillmentDelivery": "Yetkazib berish",
+  "paymentCash": "Naqd to'lov",
+  "paymentOnline": "Onlayn to'lov",
+  "orderStatusPending": "Kutilmoqda",
+  "orderStatusAccepted": "Qabul qilindi",
+  "orderStatusCancelled": "Bekor qilindi",
+  "orderStatusReady": "Tayyor",
+  "orderStatusOnTheWay": "Yo'lda",
+  "orderStatusDelivered": "Topshirildi",
+  "orderSuccessTitle": "Buyurtma yuborildi!",
+  "orderSuccessMessage": "Do'kon buyurtmani ko'rib chiqib, tez orada tasdiqlaydi.",
+  "orderNumber": "Buyurtma №{number}",
+  "@orderNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "orderScheduledFor": "Qachonga",
+  "orderBackHome": "Bosh sahifaga",
+  "errorInvalidSchedule": "Tanlangan vaqt mos emas. Boshqa vaqtni tanlang.",
+  "errorAddressRequired": "Yetkazib berish uchun manzilni kiriting.",
+  "errorItemsChanged": "Savatdagi ba'zi mahsulotlar o'zgargan. Savatni tekshirib, qaytadan urinib ko'ring.",
+  "adminTabOrders": "Buyurtmalar",
+  "adminOrdersEmptyTitle": "Buyurtmalar yo'q",
+  "adminOrdersEmptyMessage": "Yangi buyurtmalar shu yerda ko'rinadi.",
+  "adminOrdersFilterAll": "Barchasi",
+  "adminOrderTitle": "Buyurtma №{number}",
+  "@adminOrderTitle": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "adminOrderCustomer": "Mijoz",
+  "adminOrderDetails": "Buyurtma tafsilotlari",
+  "adminOrderReceiving": "Qabul qilish usuli",
+  "adminOrderPayment": "To'lov usuli",
+  "adminOrderNote": "Mijoz izohi",
+  "adminOrderCancelReasonTitle": "Bekor qilish sababi",
+  "adminOrderItems": "Mahsulotlar",
+  "adminOrderSubtotal": "Mahsulotlar summasi",
+  "adminOrderDeliveryFee": "Yetkazib berish",
+  "adminOrderDiscount": "Chegirma",
+  "adminOrderTotal": "Jami",
+  "adminOrderAccept": "Qabul qilish",
+  "adminOrderMarkReady": "Tayyor",
+  "adminOrderMarkOnTheWay": "Yo'lda",
+  "adminOrderMarkDelivered": "Topshirildi",
+  "adminOrderCancel": "Bekor qilish",
+  "adminOrderCancelTitle": "Buyurtmani bekor qilasizmi?",
+  "adminOrderCancelMessage": "Mijozga ko'rinadigan sababni yozing. Mahsulotlar omborga qaytariladi.",
+  "adminOrderCancelReasonLabel": "Sabab",
+  "adminOrderCancelConfirm": "Bekor qilish",
+  "adminOrderCashHint": "Topshirilganda to'lov «to'langan» deb belgilanadi.",
+  "adminOrderUpdated": "Holat yangilandi",
+  "paymentStatusUnpaid": "To'lanmagan",
+  "paymentStatusPaid": "To'langan",
+  "paymentStatusRefunded": "Qaytarilgan",
+  "errorInvalidTransition": "Buyurtma holati allaqachon o'zgargan. Ro'yxatni yangilab ko'ring.",
+  "errorOrderNotCancellable": "Bu buyurtmani endi bekor qilib bo'lmaydi.",
+  "myOrdersTitle": "Buyurtmalarim",
+  "myOrdersEmptyTitle": "Hali buyurtma yo'q",
+  "myOrdersEmptyMessage": "Birinchi buyurtmangizni bering — shirinliklar kutmoqda.",
+  "myOrdersBrowse": "Katalogga o'tish",
+  "myOrderItems": "Mahsulotlar",
+  "myOrderSubtotal": "Mahsulotlar summasi",
+  "myOrderPaymentStatus": "To'lov holati",
+  "orderCancelAction": "Buyurtmani bekor qilish",
+  "orderCancelTitle": "Buyurtmani bekor qilasizmi?",
+  "orderCancelMessage": "Buyurtma qabul qilinishidan oldin bekor qilish mumkin. Bu amalni qaytarib bo'lmaydi.",
+  "orderCancelConfirm": "Ha, bekor qilish",
+  "orderCancelKeep": "Yo'q, qoldirish",
+  "orderCancelDone": "Buyurtma bekor qilindi",
+  "payTitle": "To'lov",
+  "payNow": "Hozir to'lash",
+  "payPayOnline": "Onlayn to'lash",
+  "payProceed": "To'lashga o'tish",
+  "payReadyMessage": "Siz to'lov sahifasiga o'tkaziladi. To'lovdan keyin ilovaga qayting.",
+  "payOpening": "To'lov sahifasi ochilmoqda…",
+  "payChecking": "To'lov tekshirilmoqda…",
+  "payWaitingTitle": "To'lovni yakunlang",
+  "payWaitingMessage": "To'lov sahifasida to'lovni tugatib, ilovaga qayting. Holatni avtomatik tekshiramiz.",
+  "payCheck": "Holatni tekshirish",
+  "payRetry": "Qayta urinish",
+  "payPendingTitle": "To'lov hali tasdiqlanmadi",
+  "payPendingMessage": "Pul yechilmagan bo'lsa, qayta urinib ko'ring. Yechilgan bo'lsa, birozdan keyin holatni tekshiring.",
+  "paySuccessTitle": "To'lov qabul qilindi",
+  "paySuccessMessage": "Rahmat! Buyurtmangiz to'langan deb belgilandi.",
+  "payCannotOpen": "To'lov sahifasini ochib bo'lmadi.",
+  "adminOrderRefund": "To'lovni qaytarish",
+  "adminOrderRefundTitle": "To'lovni qaytarasizmi?",
+  "adminOrderRefundMessage": "Mijozning kartasiga to'liq summa qaytariladi. Bu amalni qaytarib bo'lmaydi.",
+  "adminOrderRefundConfirm": "Qaytarish",
+  "errorPaymentUnavailable": "Onlayn to'lov hozircha mavjud emas. Keyinroq urinib ko'ring.",
+  "errorPaymentProvider": "To'lov tizimi javob bermadi. Birozdan keyin qayta urinib ko'ring.",
+  "errorPaymentNotAllowed": "Bu buyurtma uchun onlayn to'lab bo'lmaydi.",
+  "errorRefundNotAllowed": "Bu to'lovni qaytarib bo'lmaydi.",
+  "reviewsTitle": "Sharhlar",
+  "reviewsEmpty": "Bu shirinlikka hali sharh yozilmagan.",
+  "reviewsShowMore": "Yana ko'rsatish",
+  "reviewsLeave": "Baho va izoh qoldirish",
+  "reviewsOnlyBuyers": "Baho qoldirish uchun avval shu shirinlikni olgan bo'lishingiz kerak.",
+  "reviewsYourReview": "Sizning sharhingiz",
+  "reviewsYou": "Siz",
+  "reviewsAnonymous": "Mijoz",
+  "reviewsHiddenNotice": "Do'kon bu izohni yashirgan, boshqa mijozlarga ko'rinmaydi.",
+  "reviewsShopReply": "Do'kon javobi",
+  "reviewFormTitle": "Baho va izoh",
+  "reviewFormEditTitle": "Sharhni tahrirlash",
+  "reviewFormRatingLabel": "Bahoingiz",
+  "reviewFormRatingRequired": "Yulduzchani tanlang",
+  "reviewFormTextLabel": "Izoh (ixtiyoriy)",
+  "reviewFormTextHint": "Shirinlik sizga qanday yoqdi?",
+  "reviewFormSubmit": "Yuborish",
+  "reviewFormSent": "Rahmat! Sharhingiz qo'shildi.",
+  "reviewFormUpdated": "Sharh yangilandi.",
+  "reviewFormNotAllowedTitle": "Hozircha mumkin emas",
+  "reviewDeleteTitle": "Sharhni o'chirasizmi?",
+  "reviewDeleteMessage": "Baho va izohingiz o'chiriladi.",
+  "reviewDeleted": "Sharh o'chirildi.",
+  "orderRateItem": "Baho qoldirish",
+  "errorReviewNotAllowed": "Faqat shu shirinlikni olgan mijoz sharh qoldira oladi.",
+  "errorReviewExists": "Siz bu shirinlikka allaqachon sharh yozgansiz.",
+  "adminTabReviews": "Izohlar",
+  "adminReviewsFilterAll": "Barchasi",
+  "adminReviewsFilterVisible": "Ko'rinadigan",
+  "adminReviewsFilterHidden": "Yashirilgan",
+  "adminReviewsEmptyTitle": "Izohlar yo'q",
+  "adminReviewsEmptyMessage": "Mijozlar baho qoldirganda shu yerda ko'rinadi.",
+  "adminReviewHiddenBadge": "Yashirilgan",
+  "adminReviewHide": "Yashirish",
+  "adminReviewShow": "Ko'rsatish",
+  "adminReviewHideTitle": "Izohni yashirasizmi?",
+  "adminReviewHideMessage": "Izoh mahsulot sahifasida ko'rinmaydi va o'rtacha bahoga kirmaydi.",
+  "adminReviewReply": "Javob yozish",
+  "adminReviewReplyEdit": "Javobni tahrirlash",
+  "adminReviewReplyDelete": "Javobni o'chirish",
+  "adminReviewReplyHint": "Mijozga javobingiz",
+  "adminReviewReplyDeleteTitle": "Javobni o'chirasizmi?",
+  "adminReviewReplyDeleteMessage": "Javob mahsulot sahifasidan olib tashlanadi.",
+  "stockAlertNotifyMe": "Mavjud bo'lganda xabar bering",
+  "stockAlertSubscribed": "Xabar beramiz ✓",
+  "stockAlertDone": "Mahsulot qaytganda sizga xabar beramiz.",
+  "stockAlertNoPermission": "Obuna qo'shildi, lekin bildirishnomalar o'chirilgan. Xabar olish uchun ularni telefon sozlamalarida yoqing.",
+  "stockAlertCancelled": "Obuna bekor qilindi.",
+  "storeClosedTitle": "Bugun buyurtma qabul qilinmaydi",
+  "storeClosedMessage": "Do'kon bugun yangi buyurtma olmayapti. Ertaga yana urinib ko'ring.",
+  "adminStoreAccepting": "Buyurtma qabul qilish",
+  "adminStoreOpenHint": "Mijozlar buyurtma bera oladi.",
+  "adminStorePausedHint": "Bugun yangi buyurtma qabul qilinmaydi.",
+  "adminStorePauseTitle": "Bugun buyurtma qabul qilmaysizmi?",
+  "adminStorePauseMessage": "Mijozlar yangi buyurtma bera olmaydi. Qabul qilish kun oxirigacha to'xtatiladi, uni istalgan payt qayta yoqishingiz mumkin.",
+  "adminStorePauseConfirm": "To'xtatish",
+  "errorOrdersPaused": "Do'kon bugun yangi buyurtma qabul qilmayapti.",
+  "errorProductInStock": "Bu mahsulot hozir mavjud, uni savatga qo'shishingiz mumkin.",
+  "favoritesTitle": "Sevimlilar",
+  "favoritesEmptyTitle": "Sevimlilar bo'sh",
+  "favoritesEmptyMessage": "Yoqqan shirinlikdagi yurakchani bosing — u shu yerda saqlanadi.",
+  "favoritesBrowse": "Katalogni ochish",
+  "favoriteAdd": "Sevimlilarga qo'shish",
+  "favoriteRemove": "Sevimlilardan olib tashlash",
+  "orderReorderAction": "Qayta buyurtma",
+  "orderReorderDone": "Shirinliklar savatga qo'shildi",
+  "orderReorderAdjusted": "Savatga qo'shildi, ba'zilarining miqdori ombordagi qoldiqqa moslandi",
+  "orderReorderPartial": "Savatga qo'shildi. Mavjud emas: {names}",
+  "@orderReorderPartial": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  },
+  "orderReorderNothing": "Bu buyurtmadagi shirinliklar hozir mavjud emas",
+  "errorReorderNotAllowed": "Qayta buyurtma faqat topshirilgan buyurtma uchun mumkin.",
+  "profileRoleOwner": "Do'kon egasi",
+  "profileRoleStaff": "Xodim",
+  "adminTabManage": "Boshqaruv",
+  "adminManagePromosHint": "Chegirma kodlarini yarating va nazorat qiling",
+  "adminManageStaffHint": "Xodim qo'shing yoki olib tashlang",
+  "adminStaffTitle": "Xodimlar",
+  "adminStaffHint": "Xodim buyurtmalar, mahsulotlar va izohlar bilan ishlay oladi. Promokodlar, xodimlar, toifalarni o'zgartirish, mahsulotni o'chirish va pulni qaytarish faqat do'kon egasiga ochiq.",
+  "adminStaffAdd": "Xodim qo'shish",
+  "adminStaffAddHint": "Xodimning Google akkaunti emailini kiriting. U shu akkaunt bilan kirgach, admin panelga ega bo'ladi.",
+  "adminStaffEmail": "Email",
+  "adminStaffEmailInvalid": "Email noto'g'ri yozilgan",
+  "adminStaffAdded": "Xodim qo'shildi",
+  "adminStaffRemove": "Olib tashlash",
+  "adminStaffRemoveTitle": "Xodimni olib tashlaysizmi?",
+  "adminStaffRemoveMessage": "{email} admin panelga kira olmaydi. U oddiy mijoz sifatida qoladi.",
+  "@adminStaffRemoveMessage": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "adminStaffRemoved": "Xodim olib tashlandi",
+  "adminStaffNotSignedIn": "Hali kirmagan",
+  "adminPromosTitle": "Promokodlar",
+  "adminPromoAdd": "Promokod qo'shish",
+  "adminPromosEmptyTitle": "Promokodlar yo'q",
+  "adminPromosEmptyMessage": "Birinchi promokodni yarating, mijozlar uni savatda kiritib chegirma oladi.",
+  "adminPromoNew": "Yangi promokod",
+  "adminPromoEdit": "Promokodni tahrirlash",
+  "adminPromoCode": "Kod",
+  "adminPromoCodeInvalid": "3–32 ta belgi: lotin harflari, raqamlar, tire yoki pastki chiziq",
+  "adminPromoDiscountType": "Chegirma turi",
+  "adminPromoTypePercent": "Foiz",
+  "adminPromoTypeAmount": "Summa",
+  "adminPromoValuePercent": "Chegirma (%)",
+  "adminPromoValueAmount": "Chegirma (so'm)",
+  "adminPromoPercentInvalid": "1 dan 100 gacha kiriting",
+  "adminPromoUsageLimit": "Foydalanish chegarasi",
+  "adminPromoUnlimited": "Cheklanmagan",
+  "adminPromoLimitInvalid": "1 yoki undan katta son kiriting",
+  "adminPromoExpiry": "Amal qilish muddati",
+  "adminPromoNoExpiry": "Muddatsiz",
+  "adminPromoClearExpiry": "Muddatni olib tashlash",
+  "adminPromoActiveSwitch": "Faol",
+  "adminPromoSaved": "Promokod saqlandi",
+  "adminPromoDeleted": "Promokod o'chirildi",
+  "adminPromoDeleteTitle": "Promokodni o'chirasizmi?",
+  "adminPromoDeleteMessage": "{code} kodi o'chiriladi. Undan olingan chegirmali buyurtmalar saqlanib qoladi.",
+  "@adminPromoDeleteMessage": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "adminPromoPercentValue": "{percent}%",
+  "@adminPromoPercentValue": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "adminPromoDiscountLine": "Chegirma: {discount}",
+  "@adminPromoDiscountLine": {
+    "placeholders": {
+      "discount": {
+        "type": "String"
+      }
+    }
+  },
+  "adminPromoUsedCount": "Ishlatilgan: {count}",
+  "@adminPromoUsedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "adminPromoUsedOf": "Ishlatilgan: {used} / {limit}",
+  "@adminPromoUsedOf": {
+    "placeholders": {
+      "used": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "adminPromoExpiresOn": "Muddati: {date} gacha",
+  "@adminPromoExpiresOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "adminPromoStatusActive": "Faol",
+  "adminPromoStatusInactive": "O'chirilgan",
+  "adminPromoStatusExpired": "Muddati o'tgan",
+  "adminPromoStatusExhausted": "Tugagan",
+  "adminPromoEnable": "Yoqish",
+  "adminPromoDisable": "O'chirib qo'yish",
+  "promoHint": "Promokod",
+  "promoApply": "Qo'llash",
+  "promoApplied": "Chegirma: −{amount}",
+  "@promoApplied": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "promoRemove": "Promokodni olib tashlash",
+  "promoDiscountLabel": "Promokod chegirmasi",
+  "errorPromoNotFound": "Bunday promokod topilmadi yoki u faol emas.",
+  "errorPromoExpired": "Promokodning muddati tugagan.",
+  "errorPromoLimitReached": "Bu promokod ishlatilish chegarasiga yetgan.",
+  "errorPromoExists": "Bu kod bilan promokod allaqachon bor.",
+  "errorStaffExists": "Bu foydalanuvchi allaqachon xodim.",
+  "errorStaffIsOwner": "Do'kon egasini xodim qilib bo'lmaydi va olib tashlab bo'lmaydi.",
+  "errorOwnerOnly": "Bu amal faqat do'kon egasiga ruxsat etilgan.",
+  "adminManageStatsHint": "Savdo, eng ko'p sotilganlar va mijozlar",
+  "adminStatsTitle": "Statistika",
+  "adminStatsTabSales": "Savdo",
+  "adminStatsTabTop": "Eng ko'p sotilgan",
+  "adminStatsTabCustomers": "Mijozlar",
+  "adminStatsToday": "Bugun",
+  "adminStatsThisMonth": "Shu oy",
+  "adminStatsDaily": "Kunlik",
+  "adminStatsMonthly": "Oylik",
+  "adminStatsLastDays": "So'nggi {count} kun",
+  "@adminStatsLastDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "adminStatsLastMonths": "So'nggi {count} oy",
+  "@adminStatsLastMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "adminStatsOrdersCount": "{count} ta buyurtma",
+  "@adminStatsOrdersCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "adminStatsNote": "Savdoga bekor qilingan va puli qaytarilgan buyurtmalar kirmaydi. Kunlar O'zbekiston vaqti bo'yicha hisoblanadi.",
+  "adminStatsTopEmpty": "Hali sotuv yo'q",
+  "adminStatsTopEmptyHint": "Birinchi buyurtmalar kelgach, eng ko'p sotilgan shirinliklar shu yerda chiqadi.",
+  "adminStatsCustomersEmpty": "Hali mijozlar yo'q",
+  "adminStatsNoOrders": "Hali buyurtma bermagan",
+  "adminStatsLastOrder": "oxirgisi {date}",
+  "@adminStatsLastOrder": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "legalSectionTitle": "Huquqiy ma'lumot",
+  "legalPrivacyTitle": "Maxfiylik siyosati",
+  "legalRefundTitle": "Pulni qaytarish qoidalari",
+  "legalLastUpdated": "Yangilangan: {date}",
+  "@legalLastUpdated": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "offlineBanner": "Internet aloqasi yo'q. Ulanish qaytguncha ma'lumotlar yangilanmaydi.",
+  "offlineBackOnline": "Internet qayta ulandi",
+  "navHome": "Bosh sahifa",
+  "homeFeatured": "Tanlangan shirinliklar",
+  "settingsReduceTransparency": "Shaffoflikni kamaytirish",
+  "settingsReduceTransparencyHint": "Shisha effektini soddalashtiradi: blur o'chadi, matn aniqroq ko'rinadi."
+}

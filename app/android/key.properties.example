@@ -1,0 +1,7 @@
+# Nusxa oling: cp key.properties.example key.properties  (va to'ldiring). Bu fayl va .jks git'ga qo'shilmaydi.
+# Kalit yaratish (bir marta):
+#   keytool -genkey -v -keystore ~/shirinliklar-upload.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+storeFile=/absolute/path/to/shirinliklar-upload.jks
+storePassword=
+keyAlias=upload
+keyPassword=

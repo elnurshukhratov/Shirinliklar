@@ -1,0 +1,32 @@
+import { Router } from 'express';
+import { adminRouter } from './admin';
+import { authRouter } from './auth';
+import { cartRouter } from './cart';
+import { catalogRouter } from './catalog';
+import { devicesRouter } from './devices';
+import { favoritesRouter } from './favorites';
+import { healthRouter } from './health';
+import { meRouter } from './me';
+import { ordersRouter } from './orders';
+import { paymentsRouter } from './payments';
+import { promoRouter } from './promo';
+import { reviewsRouter } from './reviews';
+import { stockAlertsRouter } from './stockAlerts';
+import { storeRouter } from './store';
+
+export const apiRouter = Router();
+
+apiRouter.use('/health', healthRouter);
+apiRouter.use('/auth', authRouter);
+apiRouter.use('/me', meRouter);
+apiRouter.use('/admin', adminRouter);
+apiRouter.use('/cart', cartRouter);
+apiRouter.use('/orders', ordersRouter);
+apiRouter.use('/payments', paymentsRouter);
+apiRouter.use('/promo', promoRouter);
+apiRouter.use('/reviews', reviewsRouter);
+apiRouter.use('/devices', devicesRouter);
+apiRouter.use('/stock-alerts', stockAlertsRouter);
+apiRouter.use('/favorites', favoritesRouter);
+apiRouter.use('/store', storeRouter);
+apiRouter.use(catalogRouter);

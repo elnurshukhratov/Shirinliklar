@@ -416,7 +416,7 @@ class _HeroCard extends StatelessWidget {
                 Text(
                   l10n.authLoginSubtitle,
                   style: text.bodyMedium?.copyWith(
-                    color: Colors.white.withOpacity(0.92),
+                    color: Colors.white.withValues(alpha: 0.92),
                     height: 1.45,
                   ),
                 ),

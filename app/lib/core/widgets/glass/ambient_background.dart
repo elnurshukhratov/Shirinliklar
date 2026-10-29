@@ -26,7 +26,7 @@ class AmbientBackground extends StatelessWidget {
               gradient: RadialGradient(
                 center: const Alignment(-0.9, -0.95),
                 radius: 1.1,
-                colors: [c.ambientA.withOpacity(a), c.ambientA.withOpacity(0)],
+                colors: [c.ambientA.withValues(alpha: a), c.ambientA.withValues(alpha: 0)],
               ),
             ),
             child: DecoratedBox(
@@ -34,7 +34,7 @@ class AmbientBackground extends StatelessWidget {
                 gradient: RadialGradient(
                   center: const Alignment(1.0, 0.75),
                   radius: 1.0,
-                  colors: [c.ambientB.withOpacity(b), c.ambientB.withOpacity(0)],
+                  colors: [c.ambientB.withValues(alpha: b), c.ambientB.withValues(alpha: 0)],
                 ),
               ),
               child: const SizedBox.expand(),

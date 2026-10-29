@@ -32,7 +32,7 @@ class AppChip extends StatelessWidget {
         duration: AppMotion.of(context),
         curve: AppMotion.curve,
         decoration: BoxDecoration(
-          color: selected ? c.cta : c.surface.withOpacity(0.72),
+          color: selected ? c.cta : c.surface.withValues(alpha: 0.72),
           borderRadius: AppRadius.borderPill,
           border: Border.all(color: selected ? c.cta : c.border),
         ),

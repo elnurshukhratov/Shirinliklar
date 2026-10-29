@@ -17,7 +17,7 @@ Future<T?> showGlassSheet<T>({
     useSafeArea: true,
     backgroundColor: Colors.transparent,
     elevation: 0,
-    barrierColor: Colors.black.withOpacity(0.45),
+    barrierColor: Colors.black.withValues(alpha: 0.45),
     builder: (ctx) => _GlassSheetFrame(showDragHandle: showDragHandle, child: builder(ctx)),
   );
 }
@@ -46,7 +46,7 @@ class _GlassSheetFrame extends StatelessWidget {
                   width: 40,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: c.textSecondary.withOpacity(0.5),
+                    color: c.textSecondary.withValues(alpha: 0.5),
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../theme/app_tokens.dart';
 
 class AppTextField extends StatelessWidget {
   const AppTextField({

@@ -71,6 +71,34 @@ class AuthController extends StateNotifier<AuthState> {
     if (user != null) state = AuthState.signedIn(user);
   }
 
+  Future<void> signInWithPassword({required String login, required String password}) async {
+    final user = await _repo.signInWithPassword(login: login, password: password);
+    state = AuthState.signedIn(user);
+  }
+
+  Future<void> register({
+    required String firstName,
+    required String lastName,
+    required String username,
+    required String email,
+    required String phone,
+    required String address,
+    required String password,
+    required String passwordConfirm,
+  }) async {
+    final user = await _repo.register(
+      firstName: firstName,
+      lastName: lastName,
+      username: username,
+      email: email,
+      phone: phone,
+      address: address,
+      password: password,
+      passwordConfirm: passwordConfirm,
+    );
+    state = AuthState.signedIn(user);
+  }
+
   Future<void> updateProfile({
     required String firstName,
     required String lastName,

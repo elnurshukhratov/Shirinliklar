@@ -116,6 +116,7 @@ meRouter.delete(
         data: {
           firebaseUid: null,
           email: `deleted-${u.id}@deleted.invalid`,
+          username: null,
           firstName: null,
           lastName: null,
           phone: null,

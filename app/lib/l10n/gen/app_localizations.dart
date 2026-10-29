@@ -2541,6 +2541,162 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Shisha effektini soddalashtiradi: blur o\'chadi, matn aniqroq ko\'rinadi.'**
   String get settingsReduceTransparencyHint;
+
+  /// No description provided for @authLoginButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kirish'**
+  String get authLoginButton;
+
+  /// No description provided for @authLoginField.
+  ///
+  /// In uz, this message translates to:
+  /// **'Username yoki email'**
+  String get authLoginField;
+
+  /// No description provided for @authUsername.
+  ///
+  /// In uz, this message translates to:
+  /// **'Username'**
+  String get authUsername;
+
+  /// No description provided for @authUsernameHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'masalan, ali_2024'**
+  String get authUsernameHint;
+
+  /// No description provided for @authEmail.
+  ///
+  /// In uz, this message translates to:
+  /// **'Email'**
+  String get authEmail;
+
+  /// No description provided for @authPassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parol'**
+  String get authPassword;
+
+  /// No description provided for @authPasswordRepeat.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parolni takrorlang'**
+  String get authPasswordRepeat;
+
+  /// No description provided for @authOr.
+  ///
+  /// In uz, this message translates to:
+  /// **'yoki'**
+  String get authOr;
+
+  /// No description provided for @authRegister.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ro\'yxatdan o\'tish'**
+  String get authRegister;
+
+  /// No description provided for @authRegisterTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ro\'yxatdan o\'tish'**
+  String get authRegisterTitle;
+
+  /// No description provided for @authRegisterSubtitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ma\'lumotlaringizni kiriting — buyurtma berish oson bo\'ladi.'**
+  String get authRegisterSubtitle;
+
+  /// No description provided for @authAddressFromMap.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yashash joyi (xaritadan)'**
+  String get authAddressFromMap;
+
+  /// No description provided for @authAddressFromMapHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xaritadan joyni tanlang'**
+  String get authAddressFromMapHint;
+
+  /// No description provided for @mapPickerTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yashash joyini tanlang'**
+  String get mapPickerTitle;
+
+  /// No description provided for @mapPickerConfirm.
+  ///
+  /// In uz, this message translates to:
+  /// **'Shu manzilni tanlash'**
+  String get mapPickerConfirm;
+
+  /// No description provided for @mapPickerLocating.
+  ///
+  /// In uz, this message translates to:
+  /// **'Manzil aniqlanmoqda…'**
+  String get mapPickerLocating;
+
+  /// No description provided for @mapPickerMyLocation.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mening joylashuvim'**
+  String get mapPickerMyLocation;
+
+  /// No description provided for @mapPickerLocationFailed.
+  ///
+  /// In uz, this message translates to:
+  /// **'Joylashuvni aniqlab bo\'lmadi. Xaritani surib tanlang.'**
+  String get mapPickerLocationFailed;
+
+  /// No description provided for @usernameInvalid.
+  ///
+  /// In uz, this message translates to:
+  /// **'3–24 ta belgi: lotin harflari, raqam, _ va .'**
+  String get usernameInvalid;
+
+  /// No description provided for @emailInvalid.
+  ///
+  /// In uz, this message translates to:
+  /// **'Email manzilni to\'g\'ri kiriting'**
+  String get emailInvalid;
+
+  /// No description provided for @passwordTooShort.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parol kamida 8 ta belgidan iborat bo\'lsin'**
+  String get passwordTooShort;
+
+  /// No description provided for @passwordMismatch.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parollar bir xil emas'**
+  String get passwordMismatch;
+
+  /// No description provided for @errorInvalidCredentials.
+  ///
+  /// In uz, this message translates to:
+  /// **'Username yoki parol noto\'g\'ri.'**
+  String get errorInvalidCredentials;
+
+  /// No description provided for @errorEmailTaken.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu email allaqachon ro\'yxatdan o\'tgan.'**
+  String get errorEmailTaken;
+
+  /// No description provided for @errorUsernameTaken.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu username band. Boshqasini tanlang.'**
+  String get errorUsernameTaken;
+
+  /// No description provided for @errorTooManyRequests.
+  ///
+  /// In uz, this message translates to:
+  /// **'Juda ko\'p urinish. Birozdan keyin qayta urinib ko\'ring.'**
+  String get errorTooManyRequests;
 }
 
 class _AppLocalizationsDelegate

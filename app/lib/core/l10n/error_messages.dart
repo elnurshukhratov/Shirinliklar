@@ -9,6 +9,8 @@ ErrorText describeError(AppLocalizations l10n, Object error) {
     switch (error.code) {
       case 'NETWORK_ERROR':
         return (title: l10n.errorNetworkTitle, message: l10n.errorNetworkMessage);
+      case 'TOO_MANY_REQUESTS':
+        return (title: l10n.errorGenericTitle, message: l10n.errorTooManyRequests);
       case 'UNAUTHORIZED':
         return (title: l10n.errorGenericTitle, message: l10n.errorUnauthorizedMessage);
       case 'FORBIDDEN':
@@ -42,8 +44,18 @@ ErrorText describeError(AppLocalizations l10n, Object error) {
             return (title: l10n.errorGenericTitle, message: l10n.errorPromoLimitReached);
           case 'INVALID_EMAIL':
             return (title: l10n.errorGenericTitle, message: l10n.adminStaffEmailInvalid);
+          case 'INVALID_CREDENTIALS':
+            return (title: l10n.errorGenericTitle, message: l10n.errorInvalidCredentials);
+          case 'WEAK_PASSWORD':
+            return (title: l10n.errorGenericTitle, message: l10n.passwordTooShort);
         }
       case 'CONFLICT':
+        if (error.message == 'EMAIL_TAKEN') {
+          return (title: l10n.errorGenericTitle, message: l10n.errorEmailTaken);
+        }
+        if (error.message == 'USERNAME_TAKEN') {
+          return (title: l10n.errorGenericTitle, message: l10n.errorUsernameTaken);
+        }
         if (error.message == 'ITEMS_CHANGED') {
           return (title: l10n.errorGenericTitle, message: l10n.errorItemsChanged);
         }

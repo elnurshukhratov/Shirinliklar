@@ -5,6 +5,7 @@ class AppUser {
   const AppUser({
     required this.id,
     required this.email,
+    this.username,
     this.firstName,
     this.lastName,
     this.phone,
@@ -17,6 +18,7 @@ class AppUser {
   factory AppUser.fromJson(Map<String, dynamic> json) => AppUser(
         id: json['id'] as String,
         email: json['email'] as String,
+        username: json['username'] as String?,
         firstName: json['firstName'] as String?,
         lastName: json['lastName'] as String?,
         phone: json['phone'] as String?,
@@ -32,6 +34,7 @@ class AppUser {
 
   final String id;
   final String email;
+  final String? username;
   final String? firstName;
   final String? lastName;
   final String? phone;

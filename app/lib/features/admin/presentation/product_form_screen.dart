@@ -465,7 +465,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
               final value = ids.contains(_categoryId) ? _categoryId : null;
               final lang = Localizations.localeOf(context).languageCode;
               return DropdownButtonFormField<String?>(
-                value: value,
+                initialValue: value,
                 isExpanded: true,
                 decoration: const InputDecoration(),
                 items: [
@@ -536,7 +536,7 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
             children: [
               Expanded(
                 child: DropdownButtonFormField<VariantGroup>(
-                  value: d.group,
+                  initialValue: d.group,
                   isExpanded: true,
                   decoration: InputDecoration(labelText: l10n.adminVariantGroup),
                   items: [

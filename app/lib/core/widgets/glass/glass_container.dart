@@ -75,30 +75,30 @@ class GlassContainer extends ConsumerWidget {
       final base = tint ?? (dark ? Color.lerp(c.surface, Colors.white, 0.06)! : c.surface);
       fill = [base, base];
     } else if (tint != null) {
-      fill = [tint!.withOpacity(0.95), tint!.withOpacity(0.84 + boost)];
+      fill = [tint!.withValues(alpha: 0.95), tint!.withValues(alpha: 0.84 + boost)];
     } else if (overMedia) {
       final base = dark ? c.background : c.surface;
       fill = [
-        base.withOpacity(dark ? 0.80 : 0.92),
-        base.withOpacity((dark ? 0.70 : 0.84) + boost),
+        base.withValues(alpha: dark ? 0.80 : 0.92),
+        base.withValues(alpha: (dark ? 0.70 : 0.84) + boost),
       ];
     } else if (dark) {
       fill = [
-        Colors.white.withOpacity(0.16 + boost),
-        Colors.white.withOpacity(0.07 + boost),
+        Colors.white.withValues(alpha: 0.16 + boost),
+        Colors.white.withValues(alpha: 0.07 + boost),
       ];
     } else {
       fill = [
-        Colors.white.withOpacity(0.74 + boost / 2),
-        Colors.white.withOpacity(0.50 + boost / 2),
+        Colors.white.withValues(alpha: 0.74 + boost / 2),
+        Colors.white.withValues(alpha: 0.50 + boost / 2),
       ];
     }
 
     Widget body = CustomPaint(
       foregroundPainter: _GlassStrokePainter(
         radius: radius,
-        highlight: Colors.white.withOpacity(dark ? 0.34 : 0.95),
-        edge: reduced ? c.border : Colors.white.withOpacity(dark ? 0.06 : 0.55),
+        highlight: Colors.white.withValues(alpha: dark ? 0.34 : 0.95),
+        edge: reduced ? c.border : Colors.white.withValues(alpha: dark ? 0.06 : 0.55),
         width: reduced ? 1.2 : 1,
       ),
       child: DecoratedBox(
@@ -165,7 +165,7 @@ class _GlassStrokePainter extends CustomPainter {
       ..shader = LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [highlight, edge, edge, highlight.withOpacity(highlight.opacity * 0.4)],
+        colors: [highlight, edge, edge, highlight.withValues(alpha: highlight.opacity * 0.4)],
         stops: const [0, 0.35, 0.7, 1],
       ).createShader(rect);
     canvas.drawRRect(rrect, paint);

@@ -55,7 +55,7 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: c.surface.withOpacity(0.86),
+        fillColor: c.surface.withValues(alpha: 0.86),
         contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: 14),
         hintStyle: TextStyle(color: c.textSecondary),
         errorStyle: TextStyle(color: c.error),
@@ -92,7 +92,7 @@ class AppTheme {
         modalBackgroundColor: c.surface,
         shape: const RoundedRectangleBorder(borderRadius: AppRadius.borderSheet),
         showDragHandle: true,
-        dragHandleColor: c.textSecondary.withOpacity(0.5),
+        dragHandleColor: c.textSecondary.withValues(alpha: 0.5),
       ),
       popupMenuTheme: PopupMenuThemeData(
         color: c.surface,
@@ -109,7 +109,7 @@ class AppTheme {
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        indicatorColor: c.cta.withOpacity(0.22),
+        indicatorColor: c.cta.withValues(alpha: 0.22),
         labelTextStyle: WidgetStatePropertyAll(
           textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w700, color: c.textPrimary),
         ),

@@ -111,8 +111,8 @@ class AppButton extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               child: InkWell(
                 onTap: enabled ? onPressed : null,
-                splashColor: Colors.white.withOpacity(0.18),
-                highlightColor: Colors.white.withOpacity(0.08),
+                splashColor: Colors.white.withValues(alpha: 0.18),
+                highlightColor: Colors.white.withValues(alpha: 0.08),
               ),
             ),
           ),

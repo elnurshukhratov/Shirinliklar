@@ -1334,4 +1334,87 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settingsReduceTransparencyHint =>
       'Simplifies the glass effect: blur is off and text is easier to read.';
+
+  @override
+  String get authLoginButton => 'Sign in';
+
+  @override
+  String get authLoginField => 'Username or email';
+
+  @override
+  String get authUsername => 'Username';
+
+  @override
+  String get authUsernameHint => 'e.g. ali_2024';
+
+  @override
+  String get authEmail => 'Email';
+
+  @override
+  String get authPassword => 'Password';
+
+  @override
+  String get authPasswordRepeat => 'Repeat password';
+
+  @override
+  String get authOr => 'or';
+
+  @override
+  String get authRegister => 'Create account';
+
+  @override
+  String get authRegisterTitle => 'Create account';
+
+  @override
+  String get authRegisterSubtitle =>
+      'Enter your details to make ordering quick and easy.';
+
+  @override
+  String get authAddressFromMap => 'Home location (from map)';
+
+  @override
+  String get authAddressFromMapHint => 'Pick a place on the map';
+
+  @override
+  String get mapPickerTitle => 'Choose your location';
+
+  @override
+  String get mapPickerConfirm => 'Use this address';
+
+  @override
+  String get mapPickerLocating => 'Finding address…';
+
+  @override
+  String get mapPickerMyLocation => 'My location';
+
+  @override
+  String get mapPickerLocationFailed =>
+      'Couldn\'t get your location. Move the map to pick a place.';
+
+  @override
+  String get usernameInvalid =>
+      '3–24 characters: Latin letters, digits, _ and .';
+
+  @override
+  String get emailInvalid => 'Enter a valid email address';
+
+  @override
+  String get passwordTooShort => 'Password must be at least 8 characters';
+
+  @override
+  String get passwordMismatch => 'Passwords don\'t match';
+
+  @override
+  String get errorInvalidCredentials => 'Wrong username or password.';
+
+  @override
+  String get errorEmailTaken => 'This email is already registered.';
+
+  @override
+  String get errorUsernameTaken =>
+      'This username is taken. Choose another one.';
+
+  @override
+  String get errorTooManyRequests =>
+      'Too many attempts. Please try again later.';
 }

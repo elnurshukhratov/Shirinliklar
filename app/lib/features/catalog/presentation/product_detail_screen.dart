@@ -443,7 +443,7 @@ class _GalleryState extends State<_Gallery> {
                       width: i == _index ? 18 : 6,
                       height: 6,
                       decoration: BoxDecoration(
-                        color: i == _index ? Colors.white : Colors.white.withOpacity(0.55),
+                        color: i == _index ? Colors.white : Colors.white.withValues(alpha: 0.55),
                         borderRadius: BorderRadius.circular(3),
                       ),
                     ),

@@ -61,7 +61,7 @@ class GlassNavigationBar extends StatelessWidget {
                           duration: AppMotion.of(context),
                           curve: AppMotion.curve,
                           decoration: BoxDecoration(
-                            color: i == selectedIndex ? c.cta.withOpacity(0.22) : Colors.transparent,
+                            color: i == selectedIndex ? c.cta.withValues(alpha: 0.22) : Colors.transparent,
                             borderRadius: BorderRadius.circular(AppRadius.bar - 2),
                           ),
                           child: Column(

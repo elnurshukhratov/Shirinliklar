@@ -1329,4 +1329,84 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get settingsReduceTransparencyHint =>
       'Упрощает стеклянный эффект: размытие отключается, текст читается чётче.';
+
+  @override
+  String get authLoginButton => 'Войти';
+
+  @override
+  String get authLoginField => 'Username или email';
+
+  @override
+  String get authUsername => 'Username';
+
+  @override
+  String get authUsernameHint => 'например, ali_2024';
+
+  @override
+  String get authEmail => 'Email';
+
+  @override
+  String get authPassword => 'Пароль';
+
+  @override
+  String get authPasswordRepeat => 'Повторите пароль';
+
+  @override
+  String get authOr => 'или';
+
+  @override
+  String get authRegister => 'Регистрация';
+
+  @override
+  String get authRegisterTitle => 'Регистрация';
+
+  @override
+  String get authRegisterSubtitle =>
+      'Введите свои данные — так заказывать будет проще.';
+
+  @override
+  String get authAddressFromMap => 'Место проживания (с карты)';
+
+  @override
+  String get authAddressFromMapHint => 'Выберите место на карте';
+
+  @override
+  String get mapPickerTitle => 'Выберите место проживания';
+
+  @override
+  String get mapPickerConfirm => 'Выбрать этот адрес';
+
+  @override
+  String get mapPickerLocating => 'Определяем адрес…';
+
+  @override
+  String get mapPickerMyLocation => 'Моё местоположение';
+
+  @override
+  String get mapPickerLocationFailed =>
+      'Не удалось определить местоположение. Сдвиньте карту, чтобы выбрать место.';
+
+  @override
+  String get usernameInvalid => '3–24 символа: латиница, цифры, _ и .';
+
+  @override
+  String get emailInvalid => 'Введите корректный email';
+
+  @override
+  String get passwordTooShort => 'Пароль должен быть не короче 8 символов';
+
+  @override
+  String get passwordMismatch => 'Пароли не совпадают';
+
+  @override
+  String get errorInvalidCredentials => 'Неверный username или пароль.';
+
+  @override
+  String get errorEmailTaken => 'Этот email уже зарегистрирован.';
+
+  @override
+  String get errorUsernameTaken => 'Этот username занят. Выберите другой.';
+
+  @override
+  String get errorTooManyRequests => 'Слишком много попыток. Попробуйте позже.';
 }

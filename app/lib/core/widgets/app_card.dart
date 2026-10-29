@@ -37,7 +37,7 @@ class _AppCardState extends State<AppCard> {
       decoration: BoxDecoration(
         color: c.surface,
         borderRadius: AppRadius.borderCard,
-        border: Border.all(color: c.border.withOpacity(0.7)),
+        border: Border.all(color: c.border.withValues(alpha: 0.7)),
         boxShadow: lifted ? AppShadows.lifted(c) : AppShadows.rest(c),
       ),
       child: Material(

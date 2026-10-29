@@ -1341,4 +1341,85 @@ class AppLocalizationsUz extends AppLocalizations {
   @override
   String get settingsReduceTransparencyHint =>
       'Shisha effektini soddalashtiradi: blur o\'chadi, matn aniqroq ko\'rinadi.';
+
+  @override
+  String get authLoginButton => 'Kirish';
+
+  @override
+  String get authLoginField => 'Username yoki email';
+
+  @override
+  String get authUsername => 'Username';
+
+  @override
+  String get authUsernameHint => 'masalan, ali_2024';
+
+  @override
+  String get authEmail => 'Email';
+
+  @override
+  String get authPassword => 'Parol';
+
+  @override
+  String get authPasswordRepeat => 'Parolni takrorlang';
+
+  @override
+  String get authOr => 'yoki';
+
+  @override
+  String get authRegister => 'Ro\'yxatdan o\'tish';
+
+  @override
+  String get authRegisterTitle => 'Ro\'yxatdan o\'tish';
+
+  @override
+  String get authRegisterSubtitle =>
+      'Ma\'lumotlaringizni kiriting — buyurtma berish oson bo\'ladi.';
+
+  @override
+  String get authAddressFromMap => 'Yashash joyi (xaritadan)';
+
+  @override
+  String get authAddressFromMapHint => 'Xaritadan joyni tanlang';
+
+  @override
+  String get mapPickerTitle => 'Yashash joyini tanlang';
+
+  @override
+  String get mapPickerConfirm => 'Shu manzilni tanlash';
+
+  @override
+  String get mapPickerLocating => 'Manzil aniqlanmoqda…';
+
+  @override
+  String get mapPickerMyLocation => 'Mening joylashuvim';
+
+  @override
+  String get mapPickerLocationFailed =>
+      'Joylashuvni aniqlab bo\'lmadi. Xaritani surib tanlang.';
+
+  @override
+  String get usernameInvalid => '3–24 ta belgi: lotin harflari, raqam, _ va .';
+
+  @override
+  String get emailInvalid => 'Email manzilni to\'g\'ri kiriting';
+
+  @override
+  String get passwordTooShort => 'Parol kamida 8 ta belgidan iborat bo\'lsin';
+
+  @override
+  String get passwordMismatch => 'Parollar bir xil emas';
+
+  @override
+  String get errorInvalidCredentials => 'Username yoki parol noto\'g\'ri.';
+
+  @override
+  String get errorEmailTaken => 'Bu email allaqachon ro\'yxatdan o\'tgan.';
+
+  @override
+  String get errorUsernameTaken => 'Bu username band. Boshqasini tanlang.';
+
+  @override
+  String get errorTooManyRequests =>
+      'Juda ko\'p urinish. Birozdan keyin qayta urinib ko\'ring.';
 }

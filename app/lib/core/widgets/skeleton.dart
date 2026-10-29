@@ -70,18 +70,18 @@ class SkeletonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppCard(
+    return const AppCard(
       padding: EdgeInsets.zero,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AspectRatio(
+          const AspectRatio(
             aspectRatio: 1,
-            child: SizedBox.expand(
-              child: Skeleton(height: double.infinity, borderRadius: BorderRadius.zero),
+            child: const SizedBox.expand(
+              child: const Skeleton(height: double.infinity, borderRadius: BorderRadius.zero),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(AppSpacing.md),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -13,6 +13,7 @@ import '../../features/auth/application/auth_controller.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/profile_form_screen.dart';
 import '../../features/auth/presentation/profile_screen.dart';
+import '../../features/auth/presentation/register_screen.dart';
 import '../../features/cart/presentation/cart_screen.dart';
 import '../../features/catalog/presentation/product_detail_screen.dart';
 import '../../features/favorites/presentation/favorites_screen.dart';
@@ -34,6 +35,7 @@ class AppRoutes {
   AppRoutes._();
   static const splash = '/splash';
   static const login = '/login';
+  static const register = '/register';
   static const onboarding = '/onboarding';
   static const home = '/';
   static const settings = '/settings';
@@ -88,14 +90,17 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
     final user = auth.user;
     if (auth.status != AuthStatus.signedIn || user == null) {
-      return loc == AppRoutes.login ? null : AppRoutes.login;
+      return (loc == AppRoutes.login || loc == AppRoutes.register) ? null : AppRoutes.login;
     }
 
     if (!user.isProfileComplete) {
       return loc == AppRoutes.onboarding ? null : AppRoutes.onboarding;
     }
 
-    if (loc == AppRoutes.splash || loc == AppRoutes.login || loc == AppRoutes.onboarding) {
+    if (loc == AppRoutes.splash ||
+        loc == AppRoutes.login ||
+        loc == AppRoutes.register ||
+        loc == AppRoutes.onboarding) {
       return AppRoutes.home;
     }
     if (loc.startsWith(AppRoutes.admin) && !user.isAdmin) return AppRoutes.home;
@@ -119,6 +124,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.login,
         pageBuilder: (context, state) => appPage(state, const LoginScreen()),
+      ),
+      GoRoute(
+        path: AppRoutes.register,
+        pageBuilder: (context, state) => appPage(state, const RegisterScreen()),
       ),
       GoRoute(
         path: AppRoutes.onboarding,

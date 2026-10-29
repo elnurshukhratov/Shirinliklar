@@ -10,6 +10,7 @@ import '../../features/admin/presentation/admin_staff_screen.dart';
 import '../../features/admin/presentation/admin_stats_screen.dart';
 import '../../features/admin/presentation/product_form_screen.dart';
 import '../../features/auth/application/auth_controller.dart';
+import '../../features/auth/presentation/credentials_screen.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/profile_form_screen.dart';
 import '../../features/auth/presentation/profile_screen.dart';
@@ -43,6 +44,7 @@ class AppRoutes {
   static const legalRefund = '/legal/refund';
   static const profile = '/profile';
   static const profileEdit = '/profile/edit';
+  static const profileCredentials = '/profile/credentials';
   static const admin = '/admin';
   static const adminPromos = '/admin/promos';
   static const adminStaff = '/admin/staff';
@@ -203,6 +205,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: AppRoutes.profileEdit,
         pageBuilder: (context, state) => appPage(state, const ProfileFormScreen(onboarding: false)),
+      ),
+      GoRoute(
+        path: AppRoutes.profileCredentials,
+        pageBuilder: (context, state) => appPage(state, const CredentialsScreen()),
       ),
       GoRoute(
         path: AppRoutes.admin,

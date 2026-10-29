@@ -1,41 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
 import '../../../core/network/api_client.dart';
-import '../../../core/network/api_exception.dart';
+import '../../../core/network/token_store.dart';
 import '../domain/app_user.dart';
 
 class AuthRepository {
-  AuthRepository(this._api, this._auth, this._google);
+  AuthRepository(this._api, this._tokens);
 
   final ApiClient _api;
-  final FirebaseAuth _auth;
-  final GoogleSignIn _google;
+  final TokenStore _tokens;
 
-  bool get hasSession => _auth.currentUser != null;
+  bool get hasSession => (_tokens.token ?? '').isNotEmpty;
 
-  /// Foydalanuvchi oynani yopib qo'ysa null qaytaradi.
-  Future<AppUser?> signInWithGoogle() async {
-    final account = await _google.signIn();
-    if (account == null) return null;
-
-    final tokens = await account.authentication;
-    final credential = GoogleAuthProvider.credential(
-      idToken: tokens.idToken,
-      accessToken: tokens.accessToken,
-    );
-    await _auth.signInWithCredential(credential);
-
-    try {
-      final json = await _api.post<Map<String, dynamic>>('/auth/google');
-      return AppUser.fromJson(json);
-    } catch (_) {
-      await signOut();
-      rethrow;
-    }
-  }
-
-  /// Email + parol bilan ro'yxatdan o'tadi (kod yuborilmaydi) va darhol kiradi.
+  /// Ro'yxatdan o'tadi (kod yuborilmaydi) va darhol kiradi.
   Future<AppUser> register({
     required String firstName,
     required String lastName,
@@ -46,7 +21,7 @@ class AuthRepository {
     required String password,
     required String passwordConfirm,
   }) async {
-    await _api.post<Map<String, dynamic>>('/auth/register', body: {
+    final json = await _api.post<Map<String, dynamic>>('/auth/register', body: {
       'firstName': firstName,
       'lastName': lastName,
       'username': username,
@@ -56,49 +31,24 @@ class AuthRepository {
       'password': password,
       'passwordConfirm': passwordConfirm,
     });
-    await _signInWithEmail(email, password);
-    return _loadMeOrSignOut();
+    return _startSession(json);
   }
 
   /// [login] — username yoki email.
   Future<AppUser> signInWithPassword({required String login, required String password}) async {
-    final value = login.trim();
-    final email = value.contains('@') ? value.toLowerCase() : await _emailForUsername(value);
-    await _signInWithEmail(email, password);
-    return _loadMeOrSignOut();
+    final json = await _api.post<Map<String, dynamic>>('/auth/login', body: {
+      'login': login.trim(),
+      'password': password,
+    });
+    return _startSession(json);
   }
 
-  Future<String> _emailForUsername(String username) async {
-    final json = await _api.post<Map<String, dynamic>>('/auth/lookup', body: {'username': username});
-    return json['email'] as String;
-  }
-
-  Future<void> _signInWithEmail(String email, String password) async {
-    try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      switch (e.code) {
-        case 'network-request-failed':
-          throw const ApiException(code: 'NETWORK_ERROR', message: 'NETWORK_ERROR');
-        case 'too-many-requests':
-          throw const ApiException(code: 'TOO_MANY_REQUESTS', message: 'TOO_MANY_REQUESTS', status: 429);
-        default:
-          throw const ApiException(code: 'BAD_REQUEST', message: 'INVALID_CREDENTIALS', status: 400);
-      }
-    }
-  }
-
-  Future<AppUser> _loadMeOrSignOut() async {
-    try {
-      return await fetchMe();
-    } catch (_) {
-      await signOut();
-      rethrow;
-    }
+  Future<AppUser> _startSession(Map<String, dynamic> json) async {
+    await _tokens.save(json['token'] as String);
+    return AppUser.fromJson(json['user'] as Map<String, dynamic>);
   }
 
   Future<AppUser> fetchMe() async {
-    await _ensureToken();
     final json = await _api.get<Map<String, dynamic>>('/me');
     return AppUser.fromJson(json);
   }
@@ -120,26 +70,24 @@ class AuthRepository {
     return AppUser.fromJson(json);
   }
 
+  /// Username va/yoki parolni o'zgartiradi (joriy parol shart).
+  Future<AppUser> changeCredentials({
+    required String currentPassword,
+    String? username,
+    String? newPassword,
+  }) async {
+    final json = await _api.patch<Map<String, dynamic>>('/me/credentials', body: {
+      'currentPassword': currentPassword,
+      if (username != null) 'username': username,
+      if (newPassword != null) 'newPassword': newPassword,
+    });
+    return AppUser.fromJson(json);
+  }
+
   Future<void> deleteAccount() async {
     await _api.delete<Map<String, dynamic>>('/me');
     await signOut();
   }
 
-  Future<void> signOut() async {
-    try {
-      await _google.signOut();
-    } catch (_) {}
-    await _auth.signOut();
-  }
-
-  Future<void> _ensureToken() async {
-    try {
-      await _auth.currentUser?.getIdToken();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'network-request-failed') {
-        throw const ApiException(code: 'NETWORK_ERROR', message: 'NETWORK_ERROR');
-      }
-      throw const ApiException(code: 'UNAUTHORIZED', message: 'UNAUTHORIZED', status: 401);
-    }
-  }
+  Future<void> signOut() => _tokens.clear();
 }

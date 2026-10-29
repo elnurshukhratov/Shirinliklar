@@ -1409,4 +1409,23 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get errorTooManyRequests => 'Слишком много попыток. Попробуйте позже.';
+
+  @override
+  String get credentialsTitle => 'Смена логина и пароля';
+
+  @override
+  String get credentialsCurrentPassword => 'Текущий пароль';
+
+  @override
+  String get credentialsNewPassword => 'Новый пароль (необязательно)';
+
+  @override
+  String get credentialsSaved => 'Логин и пароль обновлены';
+
+  @override
+  String get errorWrongPassword => 'Текущий пароль неверен.';
+
+  @override
+  String get errorStaffNotRegistered =>
+      'Пользователь с таким email не найден. Пусть сначала зарегистрируется в приложении.';
 }

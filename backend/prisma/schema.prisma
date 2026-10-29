@@ -62,6 +62,7 @@ model User {
   firebaseUid String?   @unique
   email       String    @unique
   username    String?   @unique
+  passwordHash String?
   firstName   String?
   lastName    String?
   phone       String?

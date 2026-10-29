@@ -22,6 +22,9 @@ ErrorText describeError(AppLocalizations l10n, Object error) {
         }
         return (title: l10n.errorGenericTitle, message: l10n.errorForbiddenMessage);
       case 'NOT_FOUND':
+        if (error.message == 'STAFF_NOT_REGISTERED') {
+          return (title: l10n.errorGenericTitle, message: l10n.errorStaffNotRegistered);
+        }
         return (title: l10n.errorGenericTitle, message: l10n.errorNotFoundMessage);
       case 'UNSUPPORTED_MEDIA_TYPE':
         return (title: l10n.errorGenericTitle, message: l10n.errorImageTypeMessage);
@@ -44,6 +47,8 @@ ErrorText describeError(AppLocalizations l10n, Object error) {
             return (title: l10n.errorGenericTitle, message: l10n.errorPromoLimitReached);
           case 'INVALID_EMAIL':
             return (title: l10n.errorGenericTitle, message: l10n.adminStaffEmailInvalid);
+          case 'WRONG_PASSWORD':
+            return (title: l10n.errorGenericTitle, message: l10n.errorWrongPassword);
           case 'INVALID_CREDENTIALS':
             return (title: l10n.errorGenericTitle, message: l10n.errorInvalidCredentials);
           case 'WEAK_PASSWORD':

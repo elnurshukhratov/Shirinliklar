@@ -516,5 +516,11 @@
   "errorInvalidCredentials": "Wrong username or password.",
   "errorEmailTaken": "This email is already registered.",
   "errorUsernameTaken": "This username is taken. Choose another one.",
-  "errorTooManyRequests": "Too many attempts. Please try again later."
+  "errorTooManyRequests": "Too many attempts. Please try again later.",
+  "credentialsTitle": "Change username and password",
+  "credentialsCurrentPassword": "Current password",
+  "credentialsNewPassword": "New password (optional)",
+  "credentialsSaved": "Username and password updated",
+  "errorWrongPassword": "Current password is incorrect.",
+  "errorStaffNotRegistered": "No registered user with this email. They need to sign up in the app first."
 }

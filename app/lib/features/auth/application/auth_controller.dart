@@ -26,8 +26,7 @@ class AuthState {
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(
     ref.watch(apiClientProvider),
-    ref.watch(firebaseAuthProvider),
-    ref.watch(googleSignInProvider),
+    ref.watch(tokenStoreProvider),
   );
 });
 
@@ -65,12 +64,6 @@ class AuthController extends StateNotifier<AuthState> {
     }
   }
 
-  /// Xatoda exception tashlaydi, UI uni ko'rsatadi.
-  Future<void> signIn() async {
-    final user = await _repo.signInWithGoogle();
-    if (user != null) state = AuthState.signedIn(user);
-  }
-
   Future<void> signInWithPassword({required String login, required String password}) async {
     final user = await _repo.signInWithPassword(login: login, password: password);
     state = AuthState.signedIn(user);
@@ -95,6 +88,20 @@ class AuthController extends StateNotifier<AuthState> {
       address: address,
       password: password,
       passwordConfirm: passwordConfirm,
+    );
+    state = AuthState.signedIn(user);
+  }
+
+  /// Username va/yoki parolni o'zgartiradi.
+  Future<void> changeCredentials({
+    required String currentPassword,
+    String? username,
+    String? newPassword,
+  }) async {
+    final user = await _repo.changeCredentials(
+      currentPassword: currentPassword,
+      username: username,
+      newPassword: newPassword,
     );
     state = AuthState.signedIn(user);
   }

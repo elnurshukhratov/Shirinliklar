@@ -1,7 +1,6 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { Role, User } from '@prisma/client';
-import type { DecodedIdToken } from 'firebase-admin/auth';
-import { firebaseAuth } from '../lib/firebase';
+import { verifyToken } from '../lib/jwt';
 import { prisma } from '../lib/prisma';
 import { asyncHandler } from '../utils/asyncHandler';
 import { AppError } from '../utils/errors';
@@ -10,7 +9,7 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
     interface Request {
-      firebaseToken?: DecodedIdToken;
+      userId?: string;
       user?: User;
     }
   }
@@ -24,21 +23,21 @@ function readBearer(req: Request): string {
   return token;
 }
 
-/** Firebase ID tokenni tekshiradi (bazadagi foydalanuvchi shart emas). */
+/** Ilova tokenini (JWT) tekshiradi. */
 export const authenticate: RequestHandler = asyncHandler(async (req, _res, next) => {
   const token = readBearer(req);
   try {
-    req.firebaseToken = await firebaseAuth().verifyIdToken(token);
-  } catch (e) {
-    if (e instanceof AppError) throw e;
+    req.userId = verifyToken(token);
+  } catch {
     throw AppError.unauthorized('INVALID_TOKEN');
   }
   next();
 });
 
 const loadUser: RequestHandler = asyncHandler(async (req, _res, next) => {
-  const user = await prisma.user.findUnique({ where: { firebaseUid: req.firebaseToken!.uid } });
-  if (!user) throw AppError.unauthorized('USER_NOT_FOUND');
+  const user = await prisma.user.findUnique({ where: { id: req.userId! } });
+  // O'chirilgan hisob (email o'rnida belgi) eski token bilan ham kira olmaydi.
+  if (!user || user.email.endsWith('@deleted.invalid')) throw AppError.unauthorized('USER_NOT_FOUND');
   req.user = user;
   next();
 });

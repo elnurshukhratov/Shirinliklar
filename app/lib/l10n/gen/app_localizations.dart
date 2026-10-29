@@ -2697,6 +2697,42 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Juda ko\'p urinish. Birozdan keyin qayta urinib ko\'ring.'**
   String get errorTooManyRequests;
+
+  /// No description provided for @credentialsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Login va parolni o\'zgartirish'**
+  String get credentialsTitle;
+
+  /// No description provided for @credentialsCurrentPassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Joriy parol'**
+  String get credentialsCurrentPassword;
+
+  /// No description provided for @credentialsNewPassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi parol (ixtiyoriy)'**
+  String get credentialsNewPassword;
+
+  /// No description provided for @credentialsSaved.
+  ///
+  /// In uz, this message translates to:
+  /// **'Login va parol yangilandi'**
+  String get credentialsSaved;
+
+  /// No description provided for @errorWrongPassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Joriy parol noto\'g\'ri.'**
+  String get errorWrongPassword;
+
+  /// No description provided for @errorStaffNotRegistered.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu email bilan ro\'yxatdan o\'tgan foydalanuvchi topilmadi. Avval u ilovada ro\'yxatdan o\'tsin.'**
+  String get errorStaffNotRegistered;
 }
 
 class _AppLocalizationsDelegate

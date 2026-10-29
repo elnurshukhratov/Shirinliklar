@@ -95,6 +95,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             textAlign: TextAlign.center,
             style: text.bodyMedium?.copyWith(color: c.textSecondary),
           ),
+          if (user.username != null) ...[
+            const SizedBox(height: 2),
+            Text(
+              '@${user.username}',
+              textAlign: TextAlign.center,
+              style: text.bodyMedium?.copyWith(color: c.textSecondary),
+            ),
+          ],
           if (user.isAdmin) ...[
             const SizedBox(height: AppSpacing.md),
             Center(child: AppBadge(
@@ -138,6 +146,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   icon: Icons.favorite_border_rounded,
                   label: l10n.favoritesTitle,
                   onTap: () => context.push(AppRoutes.favorites),
+                ),
+                Divider(height: 1, color: c.border),
+                _ActionTile(
+                  icon: Icons.lock_outline_rounded,
+                  label: l10n.credentialsTitle,
+                  onTap: () => context.push(AppRoutes.profileCredentials),
                 ),
                 Divider(height: 1, color: c.border),
                 _ActionTile(

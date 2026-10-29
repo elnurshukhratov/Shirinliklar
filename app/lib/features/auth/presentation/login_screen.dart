@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/config/app_config.dart';
 import '../../../core/l10n/error_messages.dart';
 import '../../../core/l10n/l10n_extensions.dart';
+import '../../../core/network/api_exception.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_tokens.dart';
@@ -27,7 +29,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _password = TextEditingController();
   bool _obscure = true;
   bool _busy = false;
-  bool _googleBusy = false;
   String? _error;
 
   @override
@@ -35,6 +36,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     _login.dispose();
     _password.dispose();
     super.dispose();
+  }
+
+  /// Debug rejimida xatoning asl matni ham ko'rsatiladi (sozlamani topish uchun).
+  String _describe(Object e) {
+    final l10n = context.l10n;
+    final base = e is ApiException ? describeError(l10n, e).message : l10n.authSignInFailed;
+    return kDebugMode ? '$base\n[$e]' : base;
   }
 
   String? _required(String? v) => (v == null || v.trim().isEmpty) ? context.l10n.fieldRequired : null;
@@ -53,24 +61,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           );
     } catch (e) {
       if (!mounted) return;
-      setState(() => _error = describeError(context.l10n, e).message);
+      setState(() => _error = _describe(e));
     } finally {
       if (mounted) setState(() => _busy = false);
-    }
-  }
-
-  Future<void> _signInWithGoogle() async {
-    setState(() {
-      _googleBusy = true;
-      _error = null;
-    });
-    try {
-      await ref.read(authControllerProvider.notifier).signIn();
-    } catch (e) {
-      if (!mounted) return;
-      setState(() => _error = describeError(context.l10n, e).message);
-    } finally {
-      if (mounted) setState(() => _googleBusy = false);
     }
   }
 
@@ -79,7 +72,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final c = context.colors;
     final l10n = context.l10n;
     final text = Theme.of(context).textTheme;
-    final disabled = _busy || _googleBusy;
+    final disabled = _busy;
 
     return Scaffold(
       body: SafeArea(
@@ -164,26 +157,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       AppButton(
                         label: l10n.authLoginButton,
                         isLoading: _busy,
-                        onPressed: _googleBusy ? null : _signInWithPassword,
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      Row(
-                        children: [
-                          const Expanded(child: Divider()),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
-                            child: Text(l10n.authOr, style: text.bodySmall?.copyWith(color: c.textSecondary)),
-                          ),
-                          const Expanded(child: Divider()),
-                        ],
-                      ),
-                      const SizedBox(height: AppSpacing.md),
-                      AppButton(
-                        label: l10n.authContinueWithGoogle,
-                        icon: Icons.login_rounded,
-                        variant: AppButtonVariant.secondary,
-                        isLoading: _googleBusy,
-                        onPressed: _busy ? null : _signInWithGoogle,
+                        onPressed: _signInWithPassword,
                       ),
                       const SizedBox(height: AppSpacing.sm),
                       AppButton(

@@ -617,5 +617,11 @@
   "errorInvalidCredentials": "Username yoki parol noto'g'ri.",
   "errorEmailTaken": "Bu email allaqachon ro'yxatdan o'tgan.",
   "errorUsernameTaken": "Bu username band. Boshqasini tanlang.",
-  "errorTooManyRequests": "Juda ko'p urinish. Birozdan keyin qayta urinib ko'ring."
+  "errorTooManyRequests": "Juda ko'p urinish. Birozdan keyin qayta urinib ko'ring.",
+  "credentialsTitle": "Login va parolni o'zgartirish",
+  "credentialsCurrentPassword": "Joriy parol",
+  "credentialsNewPassword": "Yangi parol (ixtiyoriy)",
+  "credentialsSaved": "Login va parol yangilandi",
+  "errorWrongPassword": "Joriy parol noto'g'ri.",
+  "errorStaffNotRegistered": "Bu email bilan ro'yxatdan o'tgan foydalanuvchi topilmadi. Avval u ilovada ro'yxatdan o'tsin."
 }

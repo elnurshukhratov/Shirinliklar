@@ -516,5 +516,11 @@
   "errorInvalidCredentials": "Неверный username или пароль.",
   "errorEmailTaken": "Этот email уже зарегистрирован.",
   "errorUsernameTaken": "Этот username занят. Выберите другой.",
-  "errorTooManyRequests": "Слишком много попыток. Попробуйте позже."
+  "errorTooManyRequests": "Слишком много попыток. Попробуйте позже.",
+  "credentialsTitle": "Смена логина и пароля",
+  "credentialsCurrentPassword": "Текущий пароль",
+  "credentialsNewPassword": "Новый пароль (необязательно)",
+  "credentialsSaved": "Логин и пароль обновлены",
+  "errorWrongPassword": "Текущий пароль неверен.",
+  "errorStaffNotRegistered": "Пользователь с таким email не найден. Пусть сначала зарегистрируется в приложении."
 }

@@ -1422,4 +1422,23 @@ class AppLocalizationsUz extends AppLocalizations {
   @override
   String get errorTooManyRequests =>
       'Juda ko\'p urinish. Birozdan keyin qayta urinib ko\'ring.';
+
+  @override
+  String get credentialsTitle => 'Login va parolni o\'zgartirish';
+
+  @override
+  String get credentialsCurrentPassword => 'Joriy parol';
+
+  @override
+  String get credentialsNewPassword => 'Yangi parol (ixtiyoriy)';
+
+  @override
+  String get credentialsSaved => 'Login va parol yangilandi';
+
+  @override
+  String get errorWrongPassword => 'Joriy parol noto\'g\'ri.';
+
+  @override
+  String get errorStaffNotRegistered =>
+      'Bu email bilan ro\'yxatdan o\'tgan foydalanuvchi topilmadi. Avval u ilovada ro\'yxatdan o\'tsin.';
 }

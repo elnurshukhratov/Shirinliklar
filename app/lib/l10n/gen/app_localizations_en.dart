@@ -1417,4 +1417,23 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorTooManyRequests =>
       'Too many attempts. Please try again later.';
+
+  @override
+  String get credentialsTitle => 'Change username and password';
+
+  @override
+  String get credentialsCurrentPassword => 'Current password';
+
+  @override
+  String get credentialsNewPassword => 'New password (optional)';
+
+  @override
+  String get credentialsSaved => 'Username and password updated';
+
+  @override
+  String get errorWrongPassword => 'Current password is incorrect.';
+
+  @override
+  String get errorStaffNotRegistered =>
+      'No registered user with this email. They need to sign up in the app first.';
 }

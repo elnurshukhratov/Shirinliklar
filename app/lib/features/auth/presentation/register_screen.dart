@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -107,7 +108,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       // Muvaffaqiyatli bo'lsa router o'zi bosh sahifaga o'tkazadi.
     } catch (e) {
       if (!mounted) return;
-      setState(() => _error = describeError(context.l10n, e).message);
+      final base = describeError(context.l10n, e).message;
+      setState(() => _error = kDebugMode ? '$base\n[$e]' : base);
     } finally {
       if (mounted) setState(() => _busy = false);
     }

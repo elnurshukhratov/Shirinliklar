@@ -7,6 +7,9 @@ const schema = z
   PORT: z.coerce.number().int().positive().default(4000),
   DATABASE_URL: z.string().min(1),
   CORS_ORIGINS: z.string().default('*'),
+  // Kirish tokenini imzolash kaliti. Production'da majburiy (kamida 32 belgi).
+  JWT_SECRET: z.string().optional(),
+  JWT_EXPIRES_DAYS: z.coerce.number().int().min(1).max(365).default(30),
   FIREBASE_PROJECT_ID: z.string().optional(),
   FIREBASE_CLIENT_EMAIL: z.string().optional(),
   FIREBASE_PRIVATE_KEY: z.string().optional(),
@@ -29,6 +32,7 @@ const schema = z
 
     // Production'da majburiy sozlamalar bo'sh qolsa, server ishga tushmaydi.
     const required = [
+      'JWT_SECRET',
       'FIREBASE_PROJECT_ID',
       'FIREBASE_CLIENT_EMAIL',
       'FIREBASE_PRIVATE_KEY',
@@ -43,6 +47,9 @@ const schema = z
       for (const key of ['CLICK_SERVICE_ID', 'CLICK_MERCHANT_ID', 'CLICK_MERCHANT_USER_ID', 'CLICK_SECRET_KEY'] as const) {
         if (!v[key]) problem(key, "Onlayn to'lov (click) uchun majburiy");
       }
+    }
+    if (v.JWT_SECRET && v.JWT_SECRET.length < 32) {
+      problem('JWT_SECRET', 'Kamida 32 belgi bo\'lishi shart');
     }
     for (const key of ['PUBLIC_BASE_URL', 'STORAGE_PUBLIC_URL'] as const) {
       const value = v[key];

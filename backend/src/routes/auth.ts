@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import { Prisma } from '@prisma/client';
 import { Router } from 'express';
 import { z } from 'zod';
 import { signToken } from '../lib/jwt';
@@ -62,17 +63,29 @@ authRouter.post(
     const existing = await prisma.user.findUnique({ where: { username: d.username } });
     if (existing) throw AppError.conflict('USERNAME_TAKEN');
 
-    const user = await prisma.user.create({
-      data: {
-        email: `${d.username}${PLACEHOLDER_EMAIL_DOMAIN}`,
-        username: d.username,
-        passwordHash: await hashPassword(d.password),
-        firstName: d.firstName,
-        lastName: d.lastName,
-        phone: d.phone,
-        isProfileComplete: true,
-      },
-    });
+    const passwordHash = await hashPassword(d.password);
+
+    let user;
+    try {
+      user = await prisma.user.create({
+        data: {
+          email: `${d.username}${PLACEHOLDER_EMAIL_DOMAIN}`,
+          username: d.username,
+          passwordHash,
+          firstName: d.firstName,
+          lastName: d.lastName,
+          phone: d.phone,
+          isProfileComplete: true,
+        },
+      });
+    } catch (err) {
+      // Bir vaqtda ikki so'rov bir xil username bilan kelsa, bazadagi UNIQUE cheklovi ushlaydi.
+      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+        throw AppError.conflict('USERNAME_TAKEN');
+      }
+      throw err;
+    }
+    // Foydalanuvchi bazaga yozildi; token shundan keyin beriladi, login ham xuddi shu yozuvdan o'qiydi.
     return created(res, { token: signToken(user.id), user: toUserDto(user) });
   }),
 );

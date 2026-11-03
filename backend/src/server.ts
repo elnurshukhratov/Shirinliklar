@@ -1,10 +1,11 @@
 import { createApp } from './app';
 import { env } from './config/env';
-import { prisma } from './lib/prisma';
+import { connectDatabase, prisma } from './lib/prisma';
 
 const app = createApp();
 const server = app.listen(env.PORT, () => {
   console.log(`Server ${env.PORT}-portda ishga tushdi`);
+  void connectDatabase();
 });
 
 // Yuklama balanslagich (proxy) ulanishni serverdan oldin uzmasligi uchun.

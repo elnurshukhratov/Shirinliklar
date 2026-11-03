@@ -26,10 +26,14 @@ export function errorHandler(err: unknown, _req: Request, res: Response, _next: 
     if (err.code === 'P2002') return fail(res, 409, 'CONFLICT', 'ALREADY_EXISTS');
     if (err.code === 'P2025') return fail(res, 404, 'NOT_FOUND', 'NOT_FOUND');
     if (err.code === 'P2003') return fail(res, 400, 'BAD_REQUEST', 'INVALID_REFERENCE');
+    if (err.code === 'P2021' || err.code === 'P2022') {
+      console.error("Baza jadvali/ustuni yo'q. `npx prisma db push` ni ishga tushiring:", err.message);
+    }
   }
   // Baza bilan aloqa uzilgan yoki band bo'lsa, mijoz tushunarli 503 oladi (ilova qayta urinish ko'rsatadi).
   if (
     err instanceof Prisma.PrismaClientInitializationError ||
+    err instanceof Prisma.PrismaClientRustPanicError ||
     (err instanceof Prisma.PrismaClientKnownRequestError && ['P1001', 'P1002', 'P1008', 'P1017', 'P2024'].includes(err.code))
   ) {
     console.error(err);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-/// «Shokolad va olcha» palitrasi (Liquid Glass ruhida). Barcha ranglar shu yerda.
+/// «Vitrina» palitrasi: olcha (asosiy harakat), pistachio (yorug'lik) va karamel (baho/urg'u).
+/// Liquid Glass ruhida: fon qorong'u-iliq emas, balki shisha ortidan nur o'tayotgandek. Barcha ranglar shu yerda.
 /// Dark rejimda [primary] — matn/ikonka uchun och atirgul-olcha, tugma to'ldirishi esa [cta].
 @immutable
 class AppColors extends ThemeExtension<AppColors> {
@@ -24,6 +25,9 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.onCta,
     required this.ambientA,
     required this.ambientB,
+    required this.ambientC,
+    required this.accent,
+    required this.mint,
   });
 
   final Color background;
@@ -49,49 +53,62 @@ class AppColors extends ThemeExtension<AppColors> {
   /// Umumiy fon (AmbientBackground) uchun ikki yumshoq yorug'lik dog'i.
   final Color ambientA;
   final Color ambientB;
+  final Color ambientC;
+
+  /// Karamel: baho yulduzchasi va kichik urg'ular uchun (asosiy harakat rangi emas).
+  final Color accent;
+
+  /// Pistachio: ikkilamchi "yangi/mavjud" ohangi va fon yorug'ligi.
+  final Color mint;
 
   static const light = AppColors(
-    background: Color(0xFFFAF3EC),
+    background: Color(0xFFF8F3F5),
     surface: Color(0xFFFFFFFF),
-    textPrimary: Color(0xFF2B1810),
-    textSecondary: Color(0xFF6B5549),
-    primary: Color(0xFF9E1F43),
+    textPrimary: Color(0xFF26151B),
+    textSecondary: Color(0xFF6A5760),
+    primary: Color(0xFFA3173F),
     onPrimary: Color(0xFFFFFFFF),
-    secondary: Color(0xFFEBD9CE),
-    success: Color(0xFF4F7F55),
+    secondary: Color(0xFFEFE3E7),
+    success: Color(0xFF3F7A53),
     error: Color(0xFFB3303A),
-    border: Color(0xFFE6D6C9),
-    skeletonBase: Color(0xFFEFE2D6),
-    skeletonHighlight: Color(0xFFF8EEE6),
-    shadow: Color(0x1A2B1810),
-    shadowStrong: Color(0x332B1810),
+    border: Color(0xFFE8DADF),
+    skeletonBase: Color(0xFFEDE2E6),
+    skeletonHighlight: Color(0xFFFAF5F7),
+    shadow: Color(0x1A26151B),
+    shadowStrong: Color(0x3326151B),
     glow: Color(0x00000000),
-    cta: Color(0xFF9E1F43),
+    cta: Color(0xFFA3173F),
     onCta: Color(0xFFFFFFFF),
-    ambientA: Color(0xFFE9C3CC),
-    ambientB: Color(0xFFF0D9BE),
+    ambientA: Color(0xFFF1B8C7),
+    ambientB: Color(0xFFC8E0C2),
+    ambientC: Color(0xFFF6DDB4),
+    accent: Color(0xFFB9731D),
+    mint: Color(0xFF5E9B6E),
   );
 
   static const dark = AppColors(
-    background: Color(0xFF1C1210),
-    surface: Color(0xFF2A1B17),
-    textPrimary: Color(0xFFF6EBE2),
-    textSecondary: Color(0xFFC9B5A8),
-    primary: Color(0xFFF08AA2),
-    onPrimary: Color(0xFF1C1210),
-    secondary: Color(0xFF4A2E27),
-    success: Color(0xFF7FC48C),
+    background: Color(0xFF140D11),
+    surface: Color(0xFF241820),
+    textPrimary: Color(0xFFF7ECF0),
+    textSecondary: Color(0xFFCDB8C1),
+    primary: Color(0xFFF28DA8),
+    onPrimary: Color(0xFF140D11),
+    secondary: Color(0xFF3B2630),
+    success: Color(0xFF86CC98),
     error: Color(0xFFEF7A86),
-    border: Color(0xFF3B2822),
-    skeletonBase: Color(0xFF33231E),
-    skeletonHighlight: Color(0xFF402D27),
-    shadow: Color(0x4D000000),
-    shadowStrong: Color(0x80000000),
+    border: Color(0xFF38252E),
+    skeletonBase: Color(0xFF2E1F27),
+    skeletonHighlight: Color(0xFF3B2A34),
+    shadow: Color(0x59000000),
+    shadowStrong: Color(0x8C000000),
     glow: Color(0x33B0264A),
     cta: Color(0xFFB0264A),
     onCta: Color(0xFFFFFFFF),
-    ambientA: Color(0xFF5C0F25),
-    ambientB: Color(0xFF6B3A22),
+    ambientA: Color(0xFF6A1030),
+    ambientB: Color(0xFF1F4A3B),
+    ambientC: Color(0xFF5A3A1E),
+    accent: Color(0xFFE5A85A),
+    mint: Color(0xFF8FD1A0),
   );
 
   @override
@@ -115,6 +132,9 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? onCta,
     Color? ambientA,
     Color? ambientB,
+    Color? ambientC,
+    Color? accent,
+    Color? mint,
   }) {
     return AppColors(
       background: background ?? this.background,
@@ -136,6 +156,9 @@ class AppColors extends ThemeExtension<AppColors> {
       onCta: onCta ?? this.onCta,
       ambientA: ambientA ?? this.ambientA,
       ambientB: ambientB ?? this.ambientB,
+      ambientC: ambientC ?? this.ambientC,
+      accent: accent ?? this.accent,
+      mint: mint ?? this.mint,
     );
   }
 
@@ -163,6 +186,9 @@ class AppColors extends ThemeExtension<AppColors> {
       onCta: l(onCta, other.onCta),
       ambientA: l(ambientA, other.ambientA),
       ambientB: l(ambientB, other.ambientB),
+      ambientC: l(ambientC, other.ambientC),
+      accent: l(accent, other.accent),
+      mint: l(mint, other.mint),
     );
   }
 }

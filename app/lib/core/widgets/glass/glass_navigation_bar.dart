@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../theme/app_colors.dart';
 import '../../theme/app_motion.dart';
@@ -13,8 +14,9 @@ class GlassNavItem {
   final String label;
 }
 
-/// Suzuvchi shisha navigatsiya paneli. Tanlangan element ichida yarim shaffof
-/// olcha "tabletka" suriladi. Ekran burchaklariga concentric (katta radius).
+/// Suzuvchi shisha navigatsiya paneli (kapsula). Tanlangan element ortida yarim shaffof olcha
+/// "suyuqlik" indikatori tanlovga qarab sirpanib o'tadi; belgi esa yengil sakraydi.
+/// Ekran burchaklariga concentric (katta radius). Har bir element kamida 48 dp balandlikda.
 class GlassNavigationBar extends StatelessWidget {
   const GlassNavigationBar({
     super.key,
@@ -34,6 +36,9 @@ class GlassNavigationBar extends StatelessWidget {
     final c = context.colors;
     final text = Theme.of(context).textTheme;
     final scale = MediaQuery.textScalerOf(context).scale(1).clamp(1.0, 1.3);
+    final n = items.length;
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    final align = n <= 1 ? 0.0 : -1 + 2 * selectedIndex / (n - 1);
 
     return SafeArea(
       top: false,
@@ -41,54 +46,83 @@ class GlassNavigationBar extends StatelessWidget {
         padding: margin,
         child: GlassContainer(
           level: GlassLevel.bar,
-          borderRadius: BorderRadius.circular(AppRadius.bar + 4),
+          borderRadius: BorderRadius.circular(AppRadius.bar + 6),
           padding: const EdgeInsets.all(6),
           child: SizedBox(
             height: 62 * scale,
-            child: Row(
+            child: Stack(
               children: [
-                for (var i = 0; i < items.length; i++)
-                  Expanded(
-                    child: Semantics(
-                      button: true,
-                      selected: i == selectedIndex,
-                      label: items[i].label,
-                      excludeSemantics: true,
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () => onSelected(i),
-                        child: AnimatedContainer(
-                          duration: AppMotion.of(context),
-                          curve: AppMotion.curve,
-                          decoration: BoxDecoration(
-                            color: i == selectedIndex ? c.cta.withValues(alpha: 0.22) : Colors.transparent,
-                            borderRadius: BorderRadius.circular(AppRadius.bar - 2),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                i == selectedIndex ? items[i].selectedIcon : items[i].icon,
-                                size: 24,
-                                color: i == selectedIndex ? c.primary : c.textSecondary,
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                items[i].label,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: text.labelSmall?.copyWith(
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w700,
-                                  color: i == selectedIndex ? c.primary : c.textSecondary,
-                                ),
-                              ),
+                // Sirpanuvchi indikator.
+                Positioned.fill(
+                  child: AnimatedAlign(
+                    duration: AppMotion.of(context, const Duration(milliseconds: 360)),
+                    curve: AppMotion.spring,
+                    alignment: Alignment(align, 0),
+                    child: FractionallySizedBox(
+                      widthFactor: 1 / n,
+                      heightFactor: 1,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(AppRadius.bar),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              c.cta.withValues(alpha: dark ? 0.34 : 0.20),
+                              c.cta.withValues(alpha: dark ? 0.20 : 0.10),
                             ],
                           ),
+                          border: Border.all(color: c.cta.withValues(alpha: dark ? 0.45 : 0.28)),
                         ),
                       ),
                     ),
                   ),
+                ),
+                Row(
+                  children: [
+                    for (var i = 0; i < n; i++)
+                      Expanded(
+                        child: Semantics(
+                          button: true,
+                          selected: i == selectedIndex,
+                          label: items[i].label,
+                          excludeSemantics: true,
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {
+                              if (i != selectedIndex) HapticFeedback.selectionClick();
+                              onSelected(i);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AnimatedScale(
+                                  scale: i == selectedIndex ? 1.1 : 1.0,
+                                  duration: AppMotion.of(context, const Duration(milliseconds: 280)),
+                                  curve: AppMotion.spring,
+                                  child: Icon(
+                                    i == selectedIndex ? items[i].selectedIcon : items[i].icon,
+                                    size: 24,
+                                    color: i == selectedIndex ? c.primary : c.textSecondary,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  items[i].label,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: text.labelSmall?.copyWith(
+                                    color: i == selectedIndex ? c.primary : c.textSecondary,
+                                    fontWeight: i == selectedIndex ? FontWeight.w800 : FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
               ],
             ),
           ),

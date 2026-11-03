@@ -12,7 +12,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
-import '../../../core/widgets/glass/glass_container.dart';
+import '../../../core/widgets/brand_mark.dart';
 import '../../../core/widgets/glass/glass_icon_button.dart';
 import '../application/auth_controller.dart';
 
@@ -98,20 +98,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Center(
-                        child: GlassContainer(
-                          level: GlassLevel.floating,
-                          tint: c.cta,
-                          borderRadius: BorderRadius.circular(30),
-                          child: SizedBox(
-                            width: 96,
-                            height: 96,
-                            child: Icon(Icons.cake_rounded, size: 52, color: c.onCta),
-                          ),
-                        ),
-                      ),
+                      const Center(child: BrandMark(size: 96)),
                       const SizedBox(height: AppSpacing.xl),
-                      Text(AppConfig.appName, textAlign: TextAlign.center, style: text.headlineMedium),
+                      Text(AppConfig.appName, textAlign: TextAlign.center, style: text.displaySmall),
                       const SizedBox(height: AppSpacing.sm),
                       Text(l10n.authLoginTitle, textAlign: TextAlign.center, style: text.titleLarge),
                       const SizedBox(height: AppSpacing.sm),

@@ -13,6 +13,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../core/widgets/app_chip.dart';
+import '../../../core/widgets/brand_mark.dart';
 import '../../../core/widgets/glass/glass_container.dart';
 import '../../../core/widgets/glass/glass_icon_button.dart';
 import '../../../core/widgets/glass/glass_navigation_bar.dart';
@@ -23,6 +24,7 @@ import '../../auth/application/auth_controller.dart';
 import '../../cart/presentation/widgets/cart_icon_button.dart';
 import '../../catalog/application/catalog_providers.dart';
 import '../../catalog/domain/catalog_models.dart';
+import '../../catalog/presentation/widgets/catalog_format.dart';
 import '../../catalog/presentation/widgets/product_card.dart';
 import '../../catalog/presentation/widgets/product_image.dart';
 import '../../store/presentation/store_closed_banner.dart';
@@ -320,7 +322,6 @@ class _Hero extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final c = context.colors;
     final text = Theme.of(context).textTheme;
     final isAdmin = ref.watch(authControllerProvider).user?.isAdmin ?? false;
 
@@ -331,17 +332,7 @@ class _Hero extends ConsumerWidget {
         children: [
           Row(
             children: [
-              GlassContainer(
-                level: GlassLevel.floating,
-                blur: false,
-                shadow: false,
-                borderRadius: BorderRadius.circular(16),
-                child: SizedBox(
-                  width: 44,
-                  height: 44,
-                  child: Icon(Icons.cake_rounded, color: c.primary),
-                ),
-              ),
+              const BrandMark(size: 44, shadow: false),
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: Text(
@@ -381,6 +372,19 @@ class _Hero extends ConsumerWidget {
 class _HeroCard extends StatelessWidget {
   const _HeroCard();
 
+  Widget _orb(Color color, double size, double alpha) => IgnorePointer(
+        child: Container(
+          width: size,
+          height: size,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            gradient: RadialGradient(
+              colors: [color.withValues(alpha: alpha), color.withValues(alpha: 0)],
+            ),
+          ),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -388,40 +392,64 @@ class _HeroCard extends StatelessWidget {
     final text = Theme.of(context).textTheme;
     final dark = Theme.of(context).brightness == Brightness.dark;
 
-    // Chuqur shokolad tusiga o'tuvchi yagona yumshoq gradient; bezaksiz, matn kontrasti yuqori.
-    final deep = dark ? const Color(0xFF2A1410) : const Color(0xFF4A2418);
+    // Olchadan chuqur aubergine'ga o'tuvchi gradient; ustida pistachio va oq nur dog'lari
+    // (vitrina chirog'i). Matn har doim to'q fonda: oq rangda yuqori kontrast.
+    final deep = dark ? const Color(0xFF1E0D17) : const Color(0xFF3A0F22);
 
-    return ClipRRect(
-      borderRadius: AppRadius.borderBar,
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: 1),
+      duration: AppMotion.of(context, const Duration(milliseconds: 650)),
+      curve: AppMotion.emphasized,
+      builder: (context, t, child) => Opacity(
+        opacity: t,
+        child: Transform.translate(offset: Offset(0, 14 * (1 - t)), child: child),
+      ),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [c.cta, deep],
-          ),
+          borderRadius: AppRadius.borderBar,
+          boxShadow: AppShadows.tinted(c.cta, strength: dark ? 0.24 : 0.28),
         ),
-        child: SizedBox(
-          width: double.infinity,
-          child: Padding(
-            padding: const EdgeInsets.all(AppSpacing.xl),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  l10n.authLoginTitle,
-                  style: text.headlineMedium?.copyWith(color: Colors.white),
-                ),
-                const SizedBox(height: AppSpacing.sm),
-                Text(
-                  l10n.authLoginSubtitle,
-                  style: text.bodyMedium?.copyWith(
-                    color: Colors.white.withValues(alpha: 0.92),
-                    height: 1.45,
+        child: ClipRRect(
+          borderRadius: AppRadius.borderBar,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [c.cta, deep],
+                    ),
                   ),
                 ),
-              ],
-            ),
+              ),
+              Positioned(right: -64, bottom: -78, child: _orb(c.mint, 220, 0.42)),
+              Positioned(left: -56, top: -86, child: _orb(Colors.white, 190, 0.20)),
+              SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(AppSpacing.xl, AppSpacing.xl, AppSpacing.xxl, AppSpacing.xl),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        l10n.authLoginTitle,
+                        style: text.headlineMedium?.copyWith(color: Colors.white),
+                      ),
+                      const SizedBox(height: AppSpacing.sm),
+                      Text(
+                        l10n.authLoginSubtitle,
+                        style: text.bodyMedium?.copyWith(
+                          color: Colors.white.withValues(alpha: 0.92),
+                          height: 1.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -472,7 +500,7 @@ class _FeaturedRow extends StatelessWidget {
   }
 }
 
-class _FeaturedCard extends StatelessWidget {
+class _FeaturedCard extends StatefulWidget {
   const _FeaturedCard({required this.product, required this.lang, required this.onTap});
 
   final CatalogProduct product;
@@ -480,62 +508,98 @@ class _FeaturedCard extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
+  State<_FeaturedCard> createState() => _FeaturedCardState();
+}
+
+class _FeaturedCardState extends State<_FeaturedCard> {
+  bool _pressed = false;
+
+  @override
   Widget build(BuildContext context) {
     final c = context.colors;
     final text = Theme.of(context).textTheme;
+    final product = widget.product;
+    final pressed = _pressed && !AppMotion.reduced(context);
 
     return Semantics(
       button: true,
-      label: product.name.forLanguage(lang),
+      label: product.name.forLanguage(widget.lang),
       excludeSemantics: true,
       child: GestureDetector(
-        onTap: onTap,
-        child: SizedBox(
-          width: 210,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: AppRadius.borderBar,
-              boxShadow: AppShadows.rest(c),
-            ),
-            child: ClipRRect(
-              borderRadius: AppRadius.borderBar,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  ProductImage(url: product.mainImage),
-                  Positioned(
-                    left: AppSpacing.sm,
-                    right: AppSpacing.sm,
-                    bottom: AppSpacing.sm,
-                    child: GlassContainer(
-                      level: GlassLevel.floating,
-                      blur: false,
-                      overMedia: true,
-                      shadow: false,
-                      borderRadius: BorderRadius.circular(AppRadius.card),
-                      padding: const EdgeInsets.all(AppSpacing.md),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            product.name.forLanguage(lang),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: text.titleSmall,
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            context.formatPrice(product.price),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: text.titleMedium?.copyWith(color: c.primary),
-                          ),
-                        ],
+        onTap: widget.onTap,
+        onTapDown: (_) => setState(() => _pressed = true),
+        onTapCancel: () => setState(() => _pressed = false),
+        onTapUp: (_) => setState(() => _pressed = false),
+        child: AnimatedScale(
+          scale: pressed ? 0.97 : 1,
+          duration: AppMotion.of(context, AppMotion.fast),
+          curve: pressed ? AppMotion.curve : AppMotion.spring,
+          child: SizedBox(
+            width: 214,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                borderRadius: AppRadius.borderBar,
+                boxShadow: AppShadows.lifted(c),
+              ),
+              child: ClipRRect(
+                borderRadius: AppRadius.borderBar,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    ProductImage(url: product.mainImage),
+                    Positioned(
+                      left: AppSpacing.sm,
+                      right: AppSpacing.sm,
+                      bottom: AppSpacing.sm,
+                      child: GlassContainer(
+                        level: GlassLevel.floating,
+                        blur: false,
+                        overMedia: true,
+                        shadow: false,
+                        borderRadius: BorderRadius.circular(AppRadius.card - 4),
+                        padding: const EdgeInsets.fromLTRB(
+                          AppSpacing.md,
+                          AppSpacing.md,
+                          AppSpacing.md,
+                          AppSpacing.md,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              product.name.forLanguage(widget.lang),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: text.titleSmall,
+                            ),
+                            const SizedBox(height: 2),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    context.formatPrice(product.price),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: text.titleMedium?.copyWith(color: c.primary),
+                                  ),
+                                ),
+                                if (product.reviewsCount > 0) ...[
+                                  Icon(Icons.star_rounded, size: 16, color: c.accent),
+                                  const SizedBox(width: 2),
+                                  Text(
+                                    formatRating(context, product.averageRating),
+                                    style: text.labelMedium,
+                                  ),
+                                ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

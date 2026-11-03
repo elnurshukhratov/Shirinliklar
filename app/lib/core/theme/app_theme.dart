@@ -40,7 +40,13 @@ class AppTheme {
       canvasColor: c.background,
       textTheme: textTheme,
       dividerColor: c.border,
-      splashFactory: InkRipple.splashFactory,
+      // Android 12+ ning o'z "sparkle" to'lqini (Material 3 Expressive hissi).
+      splashFactory: InkSparkle.splashFactory,
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: c.primary,
+        selectionColor: c.primary.withValues(alpha: 0.28),
+        selectionHandleColor: c.primary,
+      ),
       extensions: [c],
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.transparent,
@@ -55,14 +61,14 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: c.surface.withValues(alpha: 0.86),
+        fillColor: c.surface.withValues(alpha: 0.9),
         contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: 14),
-        hintStyle: TextStyle(color: c.textSecondary),
+        hintStyle: textTheme.bodyMedium?.copyWith(color: c.textSecondary.withValues(alpha: 0.8)),
         errorStyle: TextStyle(color: c.error),
         border: border(c.border),
         enabledBorder: border(c.border),
         disabledBorder: border(c.border),
-        focusedBorder: border(c.primary, 1.5),
+        focusedBorder: border(c.primary, 1.8),
         errorBorder: border(c.error),
         focusedErrorBorder: border(c.error, 1.5),
       ),
@@ -80,7 +86,7 @@ class AppTheme {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.circular(32),
           side: BorderSide(color: c.border),
         ),
         titleTextStyle: textTheme.titleLarge,
@@ -110,6 +116,7 @@ class AppTheme {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         indicatorColor: c.cta.withValues(alpha: 0.22),
+        height: 68,
         labelTextStyle: WidgetStatePropertyAll(
           textTheme.labelSmall?.copyWith(fontWeight: FontWeight.w700, color: c.textPrimary),
         ),

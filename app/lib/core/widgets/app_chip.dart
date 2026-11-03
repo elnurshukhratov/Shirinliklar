@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../theme/app_colors.dart';
 import '../theme/app_motion.dart';
 import '../theme/app_tokens.dart';
 
+/// Filtr chipi. Tanlanganda olcha gradient va yengil yorug'lik, tanlanmaganda yupqa shaffof sirt.
+/// Bosish maydoni kamida 44 dp balandlikda.
 class AppChip extends StatelessWidget {
   const AppChip({
     super.key,
@@ -29,19 +32,33 @@ class AppChip extends StatelessWidget {
       label: label,
       excludeSemantics: true,
       child: AnimatedContainer(
-        duration: AppMotion.of(context),
+        duration: AppMotion.of(context, const Duration(milliseconds: 220)),
         curve: AppMotion.curve,
+        constraints: const BoxConstraints(minHeight: 44),
         decoration: BoxDecoration(
-          color: selected ? c.cta : c.surface.withValues(alpha: 0.72),
+          gradient: selected
+              ? LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color.lerp(c.cta, Colors.white, 0.14)!, c.cta],
+                )
+              : null,
+          color: selected ? null : c.surface.withValues(alpha: 0.62),
           borderRadius: AppRadius.borderPill,
           border: Border.all(color: selected ? c.cta : c.border),
+          boxShadow: selected ? AppShadows.tinted(c.cta, strength: 0.26) : const [],
         ),
         child: Material(
           color: Colors.transparent,
           borderRadius: AppRadius.borderPill,
           clipBehavior: Clip.antiAlias,
           child: InkWell(
-            onTap: onTap,
+            onTap: onTap == null
+                ? null
+                : () {
+                    if (!selected) HapticFeedback.selectionClick();
+                    onTap!();
+                  },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg, vertical: 10),
               child: Row(

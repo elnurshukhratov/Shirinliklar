@@ -22,9 +22,9 @@ class AppRadius {
 
   /// Liquid Glass ierarxiyasi: element kattalashgani sari burchak ham yumaloqlashadi.
   static const double chip = 14;
-  static const double card = 22;
-  static const double bar = 30;
-  static const double sheet = 32;
+  static const double card = 24;
+  static const double bar = 32;
+  static const double sheet = 36;
   static const double pill = 999;
 
   static BorderRadius get borderCard => BorderRadius.circular(card);
@@ -46,6 +46,16 @@ class AppShadows {
 
   static List<BoxShadow> lifted(AppColors c) => [
         BoxShadow(color: c.shadowStrong, blurRadius: 32, spreadRadius: -4, offset: const Offset(0, 14)),
+      ];
+
+  /// Rangli (olcha) soya: asosiy harakat tugmasi "yorug'lik sochib" turgandek.
+  static List<BoxShadow> tinted(Color tint, {double strength = 0.38}) => [
+        BoxShadow(
+          color: tint.withValues(alpha: strength),
+          blurRadius: 26,
+          spreadRadius: -8,
+          offset: const Offset(0, 12),
+        ),
       ];
 
   /// Tun mavzusida deyarli bilinmaydigan mayin yorug'lik.

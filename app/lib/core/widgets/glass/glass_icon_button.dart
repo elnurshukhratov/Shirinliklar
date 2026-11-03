@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../theme/app_colors.dart';
 import '../../theme/app_motion.dart';
@@ -46,7 +47,7 @@ class _GlassIconButtonState extends State<GlassIconButton> {
   Widget build(BuildContext context) {
     final c = context.colors;
     final reduced = AppMotion.reduced(context);
-    final scale = _pressed && !reduced ? 0.92 : 1.0;
+    final scale = _pressed && !reduced ? 0.9 : 1.0;
 
     return Padding(
       padding: widget.margin,
@@ -60,13 +61,18 @@ class _GlassIconButtonState extends State<GlassIconButton> {
           child: AnimatedScale(
             scale: scale,
             duration: AppMotion.of(context, AppMotion.fast),
-            curve: AppMotion.curve,
+            curve: _pressed ? AppMotion.curve : AppMotion.spring,
             child: Stack(
               clipBehavior: Clip.none,
               children: [
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
-                  onTapDown: widget.onPressed == null ? null : (_) => setState(() => _pressed = true),
+                  onTapDown: widget.onPressed == null
+                      ? null
+                      : (_) {
+                          HapticFeedback.selectionClick();
+                          setState(() => _pressed = true);
+                        },
                   onTapCancel: () => setState(() => _pressed = false),
                   onTapUp: (_) => setState(() => _pressed = false),
                   onTap: widget.onPressed,

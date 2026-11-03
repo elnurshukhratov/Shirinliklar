@@ -69,23 +69,21 @@ class AuthController extends StateNotifier<AuthState> {
     state = AuthState.signedIn(user);
   }
 
+  Future<bool> isUsernameAvailable(String username) => _repo.isUsernameAvailable(username);
+
   Future<void> register({
     required String firstName,
     required String lastName,
-    required String username,
-    required String email,
     required String phone,
-    required String address,
+    required String username,
     required String password,
     required String passwordConfirm,
   }) async {
     final user = await _repo.register(
       firstName: firstName,
       lastName: lastName,
-      username: username,
-      email: email,
       phone: phone,
-      address: address,
+      username: username,
       password: password,
       passwordConfirm: passwordConfirm,
     );

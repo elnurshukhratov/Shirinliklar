@@ -10,36 +10,45 @@ class AuthRepository {
 
   bool get hasSession => (_tokens.token ?? '').isNotEmpty;
 
+  /// Username band emasligini tekshiradi (ro'yxatdan o'tishning 2-qadami).
+  Future<bool> isUsernameAvailable(String username) async {
+    final json = await _api.get<Map<String, dynamic>>(
+      '/auth/username-available',
+      query: {'username': username},
+    );
+    return json['available'] == true;
+  }
+
   /// Ro'yxatdan o'tadi (kod yuborilmaydi) va darhol kiradi.
   Future<AppUser> register({
     required String firstName,
     required String lastName,
-    required String username,
-    required String email,
     required String phone,
-    required String address,
+    required String username,
     required String password,
     required String passwordConfirm,
   }) async {
     final json = await _api.post<Map<String, dynamic>>('/auth/register', body: {
       'firstName': firstName,
       'lastName': lastName,
-      'username': username,
-      'email': email,
       'phone': phone,
-      'address': address,
+      'username': username,
       'password': password,
       'passwordConfirm': passwordConfirm,
     });
     return _startSession(json);
   }
 
-  /// [login] — username yoki email.
+  /// [login] — username.
   Future<AppUser> signInWithPassword({required String login, required String password}) async {
-    final json = await _api.post<Map<String, dynamic>>('/auth/login', body: {
-      'login': login.trim(),
-      'password': password,
-    });
+    final json = await _api.post<Map<String, dynamic>>(
+      '/auth/login',
+      body: {
+        'login': login.trim().toLowerCase(),
+        'password': password,
+      },
+      retry: RetryPolicy.idempotent,
+    );
     return _startSession(json);
   }
 

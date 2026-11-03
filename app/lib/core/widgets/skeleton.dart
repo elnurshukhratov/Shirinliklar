@@ -24,7 +24,7 @@ class Skeleton extends StatefulWidget {
 
 class _SkeletonState extends State<Skeleton> with SingleTickerProviderStateMixin {
   late final AnimationController _controller =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 1100));
+      AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
 
   @override
   void didChangeDependencies() {
@@ -32,7 +32,7 @@ class _SkeletonState extends State<Skeleton> with SingleTickerProviderStateMixin
     if (AppMotion.reduced(context)) {
       _controller.stop();
     } else if (!_controller.isAnimating) {
-      _controller.repeat(reverse: true);
+      _controller.repeat();
     }
   }
 
@@ -49,12 +49,18 @@ class _SkeletonState extends State<Skeleton> with SingleTickerProviderStateMixin
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, _) {
-          final t = Curves.easeInOut.transform(_controller.value);
+          // Yorug'lik chizig'i chapdan o'ngga o'tadi (harakat kamaytirilganda to'xtab turadi).
+          final t = _controller.value * 3 - 1.5;
           return Container(
             width: widget.width,
             height: widget.height,
             decoration: BoxDecoration(
-              color: Color.lerp(c.skeletonBase, c.skeletonHighlight, t),
+              gradient: LinearGradient(
+                begin: Alignment(t - 0.9, -0.3),
+                end: Alignment(t + 0.9, 0.3),
+                colors: [c.skeletonBase, c.skeletonHighlight, c.skeletonBase],
+                stops: const [0.25, 0.5, 0.75],
+              ),
               borderRadius: widget.borderRadius ?? AppRadius.borderSmall,
             ),
           );

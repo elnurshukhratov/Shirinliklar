@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
+import '../../theme/app_motion.dart';
 import '../../theme/app_tokens.dart';
 import 'glass_container.dart';
 
@@ -24,15 +25,20 @@ class GlassSearchBar extends StatefulWidget {
 }
 
 class _GlassSearchBarState extends State<GlassSearchBar> {
+  final _focus = FocusNode();
+
   @override
   void initState() {
     super.initState();
     widget.controller.addListener(_onText);
+    _focus.addListener(_onText);
   }
 
   @override
   void dispose() {
     widget.controller.removeListener(_onText);
+    _focus.removeListener(_onText);
+    _focus.dispose();
     super.dispose();
   }
 
@@ -43,7 +49,17 @@ class _GlassSearchBarState extends State<GlassSearchBar> {
     final c = context.colors;
     final text = Theme.of(context).textTheme;
 
-    return GlassContainer(
+    // Fokusda: olcha rangli yupqa halqa va mayin yorug'lik (shisha "yonadi").
+    return AnimatedContainer(
+      duration: AppMotion.of(context, AppMotion.fast),
+      curve: AppMotion.curve,
+      decoration: BoxDecoration(
+        borderRadius: AppRadius.borderPill,
+        boxShadow: _focus.hasFocus
+            ? [BoxShadow(color: c.cta.withValues(alpha: 0.28), blurRadius: 18, spreadRadius: 1)]
+            : const [],
+      ),
+      child: GlassContainer(
       level: GlassLevel.floating,
       blur: widget.blur,
       borderRadius: AppRadius.borderPill,
@@ -57,6 +73,7 @@ class _GlassSearchBarState extends State<GlassSearchBar> {
             Expanded(
               child: TextField(
                 controller: widget.controller,
+                focusNode: _focus,
                 onChanged: widget.onChanged,
                 textInputAction: TextInputAction.search,
                 style: text.bodyLarge,
@@ -86,6 +103,7 @@ class _GlassSearchBarState extends State<GlassSearchBar> {
               const SizedBox(width: AppSpacing.lg),
           ],
         ),
+      ),
       ),
     );
   }

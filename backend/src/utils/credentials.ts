@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 
-export const USERNAME_RE = /^[a-z0-9_.]{3,24}$/;
+export const USERNAME_RE = /^[a-z0-9_.]{4,24}$/;
 
 /** Oddiy foydalanuvchi ro'yxatdan o'tishda ololmaydigan nomlar. */
 export const RESERVED_USERNAMES = new Set(['admin', 'administrator', 'root', 'support', 'shirinliklar']);

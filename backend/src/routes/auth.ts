@@ -16,14 +16,15 @@ export const authRouter = Router();
 // Foydalanuvchi topilmaganda ham parol tekshiruvi bir xil vaqt olishi uchun.
 const DUMMY_HASH = bcrypt.hashSync('dummy-password-for-timing', 10);
 
+/** Email so'ralmaydi; bazada email ustuni majburiy bo'lgani uchun ichki belgi yoziladi. */
+export const PLACEHOLDER_EMAIL_DOMAIN = '@users.shirinliklar.invalid';
+
 const registerSchema = z
   .object({
     firstName: z.string().trim().min(1).max(60),
     lastName: z.string().trim().min(1).max(60),
-    username: z.string().trim().toLowerCase().regex(USERNAME_RE, 'INVALID_USERNAME'),
-    email: z.string().trim().toLowerCase().email().max(254),
     phone: z.string().trim().transform(normalizePhone).refine(isValidPhone, 'INVALID_PHONE'),
-    address: z.string().trim().min(1).max(255),
+    username: z.string().trim().toLowerCase().regex(USERNAME_RE, 'INVALID_USERNAME'),
     password: z.string().min(8).max(128),
     passwordConfirm: z.string(),
   })
@@ -33,10 +34,22 @@ const registerSchema = z
     message: 'PASSWORD_MISMATCH',
   });
 
+/** Username bo'shmi — ro'yxatdan o'tishning 2-qadamida tekshiriladi. */
+authRouter.get(
+  '/username-available',
+  rateLimit(60, 60 * 1000),
+  asyncHandler(async (req, res) => {
+    const username = String(req.query.username ?? '').trim().toLowerCase();
+    if (!USERNAME_RE.test(username) || RESERVED_USERNAMES.has(username)) {
+      return ok(res, { available: false });
+    }
+    const existing = await prisma.user.findUnique({ where: { username }, select: { id: true } });
+    return ok(res, { available: !existing });
+  }),
+);
+
 /**
  * Ro'yxatdan o'tish (tasdiqlash kodisiz). Javob: { token, user } — ilova darhol kirgan bo'ladi.
- * Bazada email allaqachon bo'lsa rad etiladi: email tasdiqlanmagani uchun birovning
- * hisobini yoki rolini egallab bo'lmasligi shart.
  */
 authRouter.post(
   '/register',
@@ -46,22 +59,17 @@ authRouter.post(
 
     if (RESERVED_USERNAMES.has(d.username)) throw AppError.conflict('USERNAME_TAKEN');
 
-    const [byEmail, byUsername] = await Promise.all([
-      prisma.user.findUnique({ where: { email: d.email } }),
-      prisma.user.findUnique({ where: { username: d.username } }),
-    ]);
-    if (byEmail) throw AppError.conflict('EMAIL_TAKEN');
-    if (byUsername) throw AppError.conflict('USERNAME_TAKEN');
+    const existing = await prisma.user.findUnique({ where: { username: d.username } });
+    if (existing) throw AppError.conflict('USERNAME_TAKEN');
 
     const user = await prisma.user.create({
       data: {
-        email: d.email,
+        email: `${d.username}${PLACEHOLDER_EMAIL_DOMAIN}`,
         username: d.username,
         passwordHash: await hashPassword(d.password),
         firstName: d.firstName,
         lastName: d.lastName,
         phone: d.phone,
-        address: d.address,
         isProfileComplete: true,
       },
     });
@@ -76,7 +84,7 @@ const loginSchema = z
   })
   .strict();
 
-/** Kirish: username yoki email + parol. Javob: { token, user }. */
+/** Kirish: username (yoki email) + parol. Javob: { token, user }. */
 authRouter.post(
   '/login',
   rateLimit(20, 15 * 60 * 1000),

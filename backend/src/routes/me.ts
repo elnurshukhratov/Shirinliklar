@@ -58,9 +58,9 @@ meRouter.patch(
       firstName: data.firstName ?? u.firstName,
       lastName: data.lastName ?? u.lastName,
       phone: data.phone ?? u.phone,
-      address: data.address ?? u.address,
     };
-    const isProfileComplete = Boolean(merged.firstName && merged.lastName && merged.phone && merged.address);
+    // Manzil majburiy emas: u buyurtma berishda (yetkazib berish) so'raladi.
+    const isProfileComplete = Boolean(merged.firstName && merged.lastName && merged.phone);
 
     const updated = await prisma.user.update({
       where: { id: u.id },

@@ -1,9 +1,12 @@
 import { User } from '@prisma/client';
 
+const PLACEHOLDER_EMAIL_DOMAIN = '@users.shirinliklar.invalid';
+
 export function toUserDto(u: User) {
+  const email = u.email.endsWith(PLACEHOLDER_EMAIL_DOMAIN) && u.username ? `@${u.username}` : u.email;
   return {
     id: u.id,
-    email: u.email,
+    email,
     username: u.username,
     firstName: u.firstName,
     lastName: u.lastName,

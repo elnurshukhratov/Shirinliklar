@@ -25,6 +25,7 @@ import '../../review/presentation/product_reviews_section.dart';
 import '../application/catalog_providers.dart';
 import '../domain/catalog_models.dart';
 import 'widgets/catalog_format.dart';
+import 'widgets/product_card.dart' show productImageHeroTag;
 import 'widgets/product_image.dart';
 
 class ProductDetailScreen extends ConsumerWidget {
@@ -237,7 +238,7 @@ class _ProductViewState extends ConsumerState<_ProductView> {
           child: ListView(
             padding: const EdgeInsets.only(bottom: AppSpacing.xl),
             children: [
-              _Gallery(images: p.images, soldOut: !p.inStock),
+              _Gallery(images: p.images, soldOut: !p.inStock, heroTag: productImageHeroTag(p.id)),
               Padding(
                 padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, 0),
                 child: Column(
@@ -380,10 +381,11 @@ class _BottomBar extends StatelessWidget {
 
 /// Surib ko'riladigan rasmlar galereyasi.
 class _Gallery extends StatefulWidget {
-  const _Gallery({required this.images, required this.soldOut});
+  const _Gallery({required this.images, required this.soldOut, required this.heroTag});
 
   final List<String> images;
   final bool soldOut;
+  final String heroTag;
 
   @override
   State<_Gallery> createState() => _GalleryState();
@@ -419,7 +421,9 @@ class _GalleryState extends State<_Gallery> {
               controller: _controller,
               itemCount: images.length,
               onPageChanged: (i) => setState(() => _index = i),
-              itemBuilder: (_, i) => ProductImage(url: images[i]),
+              itemBuilder: (_, i) => i == 0
+                  ? Hero(tag: widget.heroTag, child: ProductImage(url: images[i]))
+                  : ProductImage(url: images[i]),
             ),
           if (widget.soldOut)
             Positioned(

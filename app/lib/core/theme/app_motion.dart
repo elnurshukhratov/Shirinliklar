@@ -6,6 +6,16 @@ class AppMotion {
   static const Duration fast = Duration(milliseconds: 150);
   static const Duration normal = Duration(milliseconds: 200);
   static const Duration slow = Duration(milliseconds: 300);
+
+  /// Element kirishi (Reveal), dialog va sheet uchun.
+  static const Duration entrance = Duration(milliseconds: 420);
+
+  /// Sahifa o'tishi.
+  static const Duration page = Duration(milliseconds: 380);
+
+  /// Ketma-ket (stagger) elementlar orasidagi kechikish va eng ko'p qadam soni.
+  static const Duration stagger = Duration(milliseconds: 55);
+  static const int maxStaggerSteps = 7;
   static const Curve curve = Curves.easeOutCubic;
 
   /// M3 Expressive: tez boshlanib, yumshoq to'xtaydi (sahifa va katta yuzalar uchun).

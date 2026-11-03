@@ -1,5 +1,6 @@
 import '../../../core/widgets/glass/glass_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import '../../../core/widgets/glass/glass_dialog.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -52,24 +53,14 @@ class _MyOrderDetailScreenState extends ConsumerState<MyOrderDetailScreen> {
     final l10n = context.l10n;
     final messenger = ScaffoldMessenger.of(context);
 
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(l10n.orderCancelTitle),
-        content: Text(l10n.orderCancelMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: Text(l10n.orderCancelKeep),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: Text(l10n.orderCancelConfirm, style: TextStyle(color: ctx.colors.error)),
-          ),
-        ],
-      ),
+    final confirmed = await showGlassConfirm(
+      context,
+      title: l10n.orderCancelTitle,
+      message: l10n.orderCancelMessage,
+      confirmLabel: l10n.orderCancelConfirm,
+      cancelLabel: l10n.orderCancelKeep,
     );
-    if (confirmed != true || !mounted) return;
+    if (!confirmed || !mounted) return;
 
     setState(() => _busy = true);
     try {

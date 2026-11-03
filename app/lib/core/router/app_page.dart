@@ -7,16 +7,34 @@ import '../widgets/glass/ambient_background.dart';
 /// Sahifalar orasida yumshoq o'tish: yangi sahifa pastdan ozgina ko'tarilib xiralikdan chiqadi,
 /// eski sahifa esa orqaga yengil kichrayib xiralashadi (chuqurlik hissi).
 /// Har sahifa o'z ambient fonini olib yuradi, shuning uchun o'tishda ikki fon aralashib ketmaydi.
-CustomTransitionPage<void> appPage(GoRouterState state, Widget child) {
+///
+/// [horizontal] — Login va Register kabi "qardosh" sahifalar uchun: yangi sahifa o'ngdan suriladi,
+/// eskisi chapga ketadi (bir tekislikdagi o'tish hissi).
+CustomTransitionPage<void> appPage(GoRouterState state, Widget child, {bool horizontal = false}) {
   return CustomTransitionPage<void>(
     key: state.pageKey,
     child: AmbientBackground(child: child),
-    transitionDuration: const Duration(milliseconds: 340),
+    transitionDuration: AppMotion.page,
     reverseTransitionDuration: AppMotion.normal,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       if (AppMotion.reduced(context)) return child;
       final enter = CurvedAnimation(parent: animation, curve: AppMotion.emphasized);
       final behind = CurvedAnimation(parent: secondaryAnimation, curve: AppMotion.emphasized);
+      if (horizontal) {
+        return SlideTransition(
+          position: Tween<Offset>(begin: Offset.zero, end: const Offset(-0.12, 0)).animate(behind),
+          child: FadeTransition(
+            opacity: Tween<double>(begin: 1, end: 0).animate(behind),
+            child: FadeTransition(
+              opacity: enter,
+              child: SlideTransition(
+                position: Tween<Offset>(begin: const Offset(0.14, 0), end: Offset.zero).animate(enter),
+                child: child,
+              ),
+            ),
+          ),
+        );
+      }
       return ScaleTransition(
         scale: Tween<double>(begin: 1, end: 0.97).animate(behind),
         child: FadeTransition(

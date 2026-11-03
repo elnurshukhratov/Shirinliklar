@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/glass/glass_switch.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -482,9 +483,8 @@ class _ProductFormScreenState extends ConsumerState<ProductFormScreen> {
           ),
           const SizedBox(height: AppSpacing.sm),
 
-          SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: Text(l10n.adminFieldVisible),
+          GlassSwitchTile(
+            title: l10n.adminFieldVisible,
             value: _isActive,
             onChanged: _saving ? null : (v) => setState(() => _isActive = v),
           ),

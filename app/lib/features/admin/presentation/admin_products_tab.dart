@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import '../../../core/widgets/glass/glass_switch.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -111,9 +112,9 @@ class _AdminProductsTabState extends ConsumerState<AdminProductsTab> {
             onChanged: _onSearchChanged,
           ),
         ),
-        SwitchListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
-          title: Text(l10n.adminShowHidden),
+        GlassSwitchTile(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          title: l10n.adminShowHidden,
           value: state.showHidden,
           onChanged: notifier.setShowHidden,
         ),

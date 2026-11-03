@@ -10,6 +10,9 @@ import '../../domain/catalog_models.dart';
 import 'catalog_format.dart';
 import 'product_image.dart';
 
+/// Karta rasmi va mahsulot sahifasi galereyasi o'rtasidagi umumiy element (Hero) belgisi.
+String productImageHeroTag(Object productId) => 'product-image-$productId';
+
 /// Bosh sahifadagi mahsulot kartasi: rasm, nom, narx, mavjud miqdor va o'rtacha baho.
 class ProductCard extends StatelessWidget {
   const ProductCard({super.key, required this.product, required this.onTap});
@@ -42,7 +45,10 @@ class ProductCard extends StatelessWidget {
               child: Stack(
               fit: StackFit.expand,
               children: [
-                ProductImage(url: product.mainImage),
+                Hero(
+                  tag: productImageHeroTag(product.id),
+                  child: ProductImage(url: product.mainImage),
+                ),
                 if (soldOut) ColoredBox(color: c.background.withValues(alpha: 0.6)),
                 if (soldOut)
                   Positioned(

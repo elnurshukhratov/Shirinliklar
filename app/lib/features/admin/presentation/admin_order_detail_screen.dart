@@ -1,5 +1,6 @@
 import '../../../core/widgets/glass/glass_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import '../../../core/widgets/glass/glass_dialog.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/error_messages.dart';
@@ -68,7 +69,7 @@ class _AdminOrderDetailScreenState extends ConsumerState<AdminOrderDetailScreen>
   }
 
   Future<void> _cancel(AdminOrder order) async {
-    final reason = await showDialog<String>(
+    final reason = await showGlassDialog<String>(
       context: context,
       builder: (_) => const _CancelReasonDialog(),
     );
@@ -345,42 +346,33 @@ class _CancelReasonDialogState extends State<_CancelReasonDialog> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return AlertDialog(
-      title: Text(l10n.adminOrderCancelTitle),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(l10n.adminOrderCancelMessage),
-          const SizedBox(height: AppSpacing.md),
-          TextField(
-            controller: _controller,
-            autofocus: true,
-            maxLength: 300,
-            maxLines: 3,
-            minLines: 2,
-            textCapitalization: TextCapitalization.sentences,
-            decoration: InputDecoration(labelText: l10n.adminOrderCancelReasonLabel),
-          ),
-        ],
+    return GlassDialog(
+      title: l10n.adminOrderCancelTitle,
+      message: l10n.adminOrderCancelMessage,
+      content: TextField(
+        controller: _controller,
+        autofocus: true,
+        maxLength: 300,
+        maxLines: 3,
+        minLines: 2,
+        textCapitalization: TextCapitalization.sentences,
+        decoration: InputDecoration(labelText: l10n.adminOrderCancelReasonLabel),
       ),
       actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(l10n.commonCancel),
-        ),
         ValueListenableBuilder<TextEditingValue>(
           valueListenable: _controller,
           builder: (context, value, _) {
             final reason = value.text.trim();
-            return TextButton(
+            return GlassDialogAction(
+              label: l10n.adminOrderCancelConfirm,
+              kind: GlassDialogActionKind.destructive,
               onPressed: reason.isEmpty ? null : () => Navigator.of(context).pop(reason),
-              child: Text(
-                l10n.adminOrderCancelConfirm,
-                style: TextStyle(color: reason.isEmpty ? null : context.colors.error),
-              ),
             );
           },
+        ),
+        GlassDialogAction(
+          label: l10n.commonCancel,
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ],
     );

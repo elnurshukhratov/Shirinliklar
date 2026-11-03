@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/l10n/error_messages.dart';
 import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
@@ -297,9 +298,30 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           padding: const EdgeInsets.all(AppSpacing.lg),
           children: [
-            LinearProgressIndicator(value: (_step + 1) / 3),
+            TweenAnimationBuilder<double>(
+              tween: Tween<double>(end: (_step + 1) / 3),
+              duration: AppMotion.of(context, AppMotion.slow),
+              curve: AppMotion.emphasized,
+              builder: (context, v, _) => LinearProgressIndicator(
+                value: v,
+                minHeight: 6,
+                borderRadius: AppRadius.borderPill,
+              ),
+            ),
             const SizedBox(height: AppSpacing.xl),
-            _stepForm(context),
+            AnimatedSwitcher(
+              duration: AppMotion.of(context, AppMotion.slow),
+              switchInCurve: AppMotion.emphasized,
+              switchOutCurve: Curves.easeIn,
+              transitionBuilder: (child, anim) => FadeTransition(
+                opacity: anim,
+                child: SlideTransition(
+                  position: Tween<Offset>(begin: const Offset(0.06, 0), end: Offset.zero).animate(anim),
+                  child: child,
+                ),
+              ),
+              child: KeyedSubtree(key: ValueKey(_step), child: _stepForm(context)),
+            ),
             const SizedBox(height: AppSpacing.xl),
             if (_error != null) ...[
               Text(_error!, style: text.bodyMedium?.copyWith(color: c.error)),

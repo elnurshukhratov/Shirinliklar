@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/glass/glass_dialog.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,27 +28,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final messenger = ScaffoldMessenger.of(context);
     final controller = ref.read(authControllerProvider.notifier);
 
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.profileDeleteTitle),
-        content: Text(l10n.profileDeleteMessage),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(false),
-            child: Text(l10n.commonCancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(true),
-            child: Text(
-              l10n.commonDelete,
-              style: TextStyle(color: dialogContext.colors.error),
-            ),
-          ),
-        ],
-      ),
+    final confirmed = await showGlassConfirm(
+      context,
+      title: l10n.profileDeleteTitle,
+      message: l10n.profileDeleteMessage,
+      confirmLabel: l10n.commonDelete,
     );
-    if (confirmed != true || !mounted) return;
+    if (!confirmed || !mounted) return;
 
     setState(() => _busy = true);
     try {

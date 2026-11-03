@@ -125,11 +125,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: AppRoutes.login,
-        pageBuilder: (context, state) => appPage(state, const LoginScreen()),
+        pageBuilder: (context, state) => appPage(state, const LoginScreen(), horizontal: true),
       ),
       GoRoute(
         path: AppRoutes.register,
-        pageBuilder: (context, state) => appPage(state, const RegisterScreen()),
+        pageBuilder: (context, state) => appPage(state, const RegisterScreen(), horizontal: true),
       ),
       GoRoute(
         path: AppRoutes.onboarding,

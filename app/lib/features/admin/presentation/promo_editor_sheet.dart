@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/glass/glass_switch.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -225,9 +226,8 @@ class _PromoEditorSheetState extends ConsumerState<PromoEditorSheet> {
                     ),
                 ],
               ),
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text(l10n.adminPromoActiveSwitch),
+              GlassSwitchTile(
+                title: l10n.adminPromoActiveSwitch,
                 value: _isActive,
                 onChanged: _busy ? null : (v) => setState(() => _isActive = v),
               ),

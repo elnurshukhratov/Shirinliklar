@@ -9,11 +9,13 @@ import '../../../core/l10n/l10n_extensions.dart';
 import '../../../core/network/api_exception.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_motion.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../core/widgets/app_button.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../../../core/widgets/brand_mark.dart';
 import '../../../core/widgets/glass/glass_icon_button.dart';
+import '../../../core/widgets/glass/reveal.dart';
 import '../application/auth_controller.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -98,9 +100,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Center(child: BrandMark(size: 96)),
+                      const Reveal(index: 0, child: Center(child: BrandMark(size: 96))),
                       const SizedBox(height: AppSpacing.xl),
-                      Text(AppConfig.appName, textAlign: TextAlign.center, style: text.displaySmall),
+                      Reveal(
+                        index: 1,
+                        child: Text(AppConfig.appName, textAlign: TextAlign.center, style: text.displaySmall),
+                      ),
                       const SizedBox(height: AppSpacing.sm),
                       Text(l10n.authLoginTitle, textAlign: TextAlign.center, style: text.titleLarge),
                       const SizedBox(height: AppSpacing.sm),
@@ -110,7 +115,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         style: text.bodyMedium?.copyWith(color: c.textSecondary),
                       ),
                       const SizedBox(height: AppSpacing.xl),
-                      AppTextField(
+                      Reveal(
+                        index: 2,
+                        child: AppTextField(
                         controller: _login,
                         label: l10n.authLoginField,
                         keyboardType: TextInputType.emailAddress,
@@ -119,8 +126,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         validator: _required,
                         enabled: !disabled,
                       ),
+                      ),
                       const SizedBox(height: AppSpacing.lg),
-                      AppTextField(
+                      Reveal(
+                        index: 3,
+                        child: AppTextField(
                         controller: _password,
                         label: l10n.authPassword,
                         obscureText: _obscure,
@@ -130,9 +140,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         onSubmitted: (_) => _signInWithPassword(),
                         enabled: !disabled,
                         suffixIcon: IconButton(
-                          icon: Icon(_obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined),
+                          icon: AnimatedSwitcher(
+                            duration: AppMotion.of(context, AppMotion.fast),
+                            transitionBuilder: (child, anim) => ScaleTransition(
+                              scale: anim,
+                              child: FadeTransition(opacity: anim, child: child),
+                            ),
+                            child: Icon(
+                              _obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                              key: ValueKey(_obscure),
+                            ),
+                          ),
                           onPressed: () => setState(() => _obscure = !_obscure),
                         ),
+                      ),
                       ),
                       const SizedBox(height: AppSpacing.lg),
                       if (_error != null) ...[
@@ -143,10 +164,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                         const SizedBox(height: AppSpacing.md),
                       ],
-                      AppButton(
-                        label: l10n.authLoginButton,
-                        isLoading: _busy,
-                        onPressed: _signInWithPassword,
+                      Reveal(
+                        index: 4,
+                        child: AppButton(
+                          label: l10n.authLoginButton,
+                          isLoading: _busy,
+                          onPressed: _signInWithPassword,
+                        ),
                       ),
                       const SizedBox(height: AppSpacing.sm),
                       AppButton(

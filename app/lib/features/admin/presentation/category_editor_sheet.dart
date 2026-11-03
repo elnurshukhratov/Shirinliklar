@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../core/widgets/glass/glass_switch.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -138,9 +139,8 @@ class _CategoryEditorSheetState extends ConsumerState<CategoryEditorSheet> {
                 maxLength: 5,
                 enabled: !_busy,
               ),
-              SwitchListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text(l10n.adminFieldVisible),
+              GlassSwitchTile(
+                title: l10n.adminFieldVisible,
                 value: _isActive,
                 onChanged: _busy ? null : (v) => setState(() => _isActive = v),
               ),

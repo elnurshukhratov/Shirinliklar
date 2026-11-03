@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/widgets/glass/glass_switch.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/l10n/error_messages.dart';
@@ -86,7 +87,7 @@ class _StoreStatusCardState extends ConsumerState<StoreStatusCard> {
                   ],
                 ),
               ),
-              Switch(
+              GlassSwitch(
                 value: s.acceptingOrders,
                 onChanged: _busy ? null : _toggle,
               ),

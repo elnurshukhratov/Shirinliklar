@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import '../../../core/widgets/glass/reveal.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -292,10 +293,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           delegate: SliverChildBuilderDelegate(
             (context, i) {
               final product = state.items[i];
-              return ProductCard(
+              return Reveal(
                 key: ValueKey(product.id),
-                product: product,
-                onTap: () => context.push(AppRoutes.product(product.id)),
+                index: i % 6,
+                child: ProductCard(
+                  product: product,
+                  onTap: () => context.push(AppRoutes.product(product.id)),
+                ),
               );
             },
             childCount: state.items.length,

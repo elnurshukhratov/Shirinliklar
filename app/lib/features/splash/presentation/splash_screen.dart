@@ -76,7 +76,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
           builder: (context, _) {
             final t = _controller.value;
             final haloT = AppMotion.emphasized.transform((t * 1.2).clamp(0.0, 1.0));
-            final markT = AppMotion.spring.transform((t * 1.5).clamp(0.0, 1.0));
+            final markT = AppMotion.springCurve.transform((t * 1.5).clamp(0.0, 1.0));
             final nameT = AppMotion.emphasized.transform(((t - 0.35) / 0.65).clamp(0.0, 1.0));
             return Column(
               mainAxisSize: MainAxisSize.min,

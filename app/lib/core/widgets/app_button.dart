@@ -124,7 +124,7 @@ class _AppButtonState extends State<AppButton> {
       child: AnimatedScale(
         scale: scale,
         duration: AppMotion.of(context, const Duration(milliseconds: 180)),
-        curve: _pressed ? AppMotion.curve : AppMotion.spring,
+        curve: _pressed ? AppMotion.curve : AppMotion.springCurve,
         child: Stack(
           // Shisha sirt ham tugmaning to'liq kengligini egallashi uchun (bosiladigan joy bilan bir xil).
           fit: StackFit.passthrough,

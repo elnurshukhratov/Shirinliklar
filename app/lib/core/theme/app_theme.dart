@@ -35,7 +35,7 @@ class AppTheme {
       useMaterial3: true,
       brightness: brightness,
       colorScheme: scheme,
-      // Fonni har sahifa o'zi (AmbientBackground, appPage ichida) chizadi.
+      // Fon app.dart builder'idagi yagona AmbientBackground; sahifalar shaffof.
       scaffoldBackgroundColor: Colors.transparent,
       canvasColor: c.background,
       textTheme: textTheme,

@@ -396,9 +396,12 @@ class _HeroCard extends StatelessWidget {
     final text = Theme.of(context).textTheme;
     final dark = Theme.of(context).brightness == Brightness.dark;
 
-    // Olchadan chuqur aubergine'ga o'tuvchi gradient; ustida pistachio va oq nur dog'lari
-    // (vitrina chirog'i). Matn har doim to'q fonda: oq rangda yuqori kontrast.
-    final deep = dark ? const Color(0xFF1E0D17) : const Color(0xFF3A0F22);
+    // Tokenlardan to'q gradient (kunda qulupnay -> chuqur, tunda uzum -> tun); ustida mint va oq
+    // nur dog'lari. Matn har doim to'q fonda: oq rangda yuqori kontrast.
+    final heroStart = dark ? c.ambientA : c.cta;
+    final deep = dark
+        ? Color.lerp(c.ambientA, c.background, 0.55)!
+        : Color.lerp(c.cta, c.textPrimary, 0.7)!;
 
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: 1),
@@ -423,7 +426,7 @@ class _HeroCard extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [c.cta, deep],
+                      colors: [heroStart, deep],
                     ),
                   ),
                 ),
@@ -537,7 +540,7 @@ class _FeaturedCardState extends State<_FeaturedCard> {
         child: AnimatedScale(
           scale: pressed ? 0.97 : 1,
           duration: AppMotion.of(context, AppMotion.fast),
-          curve: pressed ? AppMotion.curve : AppMotion.spring,
+          curve: pressed ? AppMotion.curve : AppMotion.springCurve,
           child: SizedBox(
             width: 214,
             child: DecoratedBox(

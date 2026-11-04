@@ -6,6 +6,7 @@ import 'core/l10n/locale_provider.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_mode_provider.dart';
+import 'core/widgets/glass/ambient_background.dart';
 import 'core/widgets/offline_gate.dart';
 import 'features/auth/application/auth_controller.dart';
 import 'features/notifications/application/push_service.dart';
@@ -35,7 +36,10 @@ class App extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: router,
       scaffoldMessengerKey: scaffoldMessengerKey,
-      builder: (context, child) => OfflineGate(child: child ?? const SizedBox.shrink()),
+      // Jonli fon BITTA joyda; sahifalar (Scaffold) shaffof.
+      builder: (context, child) => AmbientBackground(
+        child: OfflineGate(child: child ?? const SizedBox.shrink()),
+      ),
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       themeMode: themeMode,

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-/// «Vitrina» palitrasi: olcha (asosiy harakat), pistachio (yorug'lik) va karamel (baho/urg'u).
-/// Liquid Glass ruhida: fon qorong'u-iliq emas, balki shisha ortidan nur o'tayotgandek. Barcha ranglar shu yerda.
-/// Dark rejimda [primary] — matn/ikonka uchun och atirgul-olcha, tugma to'ldirishi esa [cta].
+/// Ikki alohida muhit: KUN «Shirin tong» va TUN «Neon shirinlik». Barcha ranglar shu yerda —
+/// vidjetlarda qattiq kodlangan rang bo'lmasin.
 @immutable
 class AppColors extends ThemeExtension<AppColors> {
   const AppColors({
@@ -28,6 +27,7 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.ambientC,
     required this.accent,
     required this.mint,
+    required this.mintStrong,
   });
 
   final Color background;
@@ -46,69 +46,76 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color shadowStrong;
   final Color glow;
 
-  /// Asosiy harakat (CTA) tugmasining yarim shaffof olcha tinti va uning ustidagi matn.
+  /// Asosiy harakat (CTA) tugmasining rangi va uning ustidagi matn.
   final Color cta;
   final Color onCta;
 
-  /// Umumiy fon (AmbientBackground) uchun ikki yumshoq yorug'lik dog'i.
+  /// Umumiy fon (AmbientBackground) uchun uchta yumshoq nur dog'i.
   final Color ambientA;
   final Color ambientB;
   final Color ambientC;
 
-  /// Karamel: baho yulduzchasi va kichik urg'ular uchun (asosiy harakat rangi emas).
+  /// Yulduzcha: baho yulduzchasi va kichik urg'ular uchun (asosiy harakat rangi emas).
   final Color accent;
 
-  /// Pistachio: ikkilamchi "yangi/mavjud" ohangi va fon yorug'ligi.
+  /// Mint: ikkilamchi "yangi/mavjud" ohangi va fon yorug'ligi.
   final Color mint;
 
+  /// Mint'ning matn sifatida ishlatiladigan to'qroq varianti (kunda 4.5:1 kontrast uchun).
+  final Color mintStrong;
+
+  /// KUN — «Shirin tong»: iliq krem fon, qulupnay-pushti urg'u.
   static const light = AppColors(
-    background: Color(0xFFF8F3F5),
+    background: Color(0xFFFFFDF8),
     surface: Color(0xFFFFFFFF),
-    textPrimary: Color(0xFF26151B),
-    textSecondary: Color(0xFF6A5760),
-    primary: Color(0xFFA3173F),
+    textPrimary: Color(0xFF1E1B3A),
+    textSecondary: Color(0xFF5E5A7A),
+    primary: Color(0xFFC8245A),
     onPrimary: Color(0xFFFFFFFF),
-    secondary: Color(0xFFEFE3E7),
-    success: Color(0xFF3F7A53),
-    error: Color(0xFFB3303A),
-    border: Color(0xFFE8DADF),
-    skeletonBase: Color(0xFFEDE2E6),
-    skeletonHighlight: Color(0xFFFAF5F7),
-    shadow: Color(0x1A26151B),
-    shadowStrong: Color(0x3326151B),
+    secondary: Color(0xFFFFE9EF),
+    success: Color(0xFF1A8050), // 1F8F5A dan to'qroq: matn kontrasti >= 4.5:1
+    error: Color(0xFFD13535), // D93B3B dan to'qroq: matn kontrasti >= 4.5:1
+    border: Color(0xFFEFE6EA),
+    skeletonBase: Color(0xFFF3EBEE),
+    skeletonHighlight: Color(0xFFFFFFFF),
+    shadow: Color(0x1A1E1B3A),
+    shadowStrong: Color(0x331E1B3A),
     glow: Color(0x00000000),
-    cta: Color(0xFFA3173F),
+    cta: Color(0xFFD92A62),
     onCta: Color(0xFFFFFFFF),
-    ambientA: Color(0xFFF1B8C7),
-    ambientB: Color(0xFFC8E0C2),
-    ambientC: Color(0xFFF6DDB4),
-    accent: Color(0xFFB9731D),
-    mint: Color(0xFF5E9B6E),
+    ambientA: Color(0xFFFF6B8B), // qulupnay
+    ambientB: Color(0xFF7CC8FF), // osmon
+    ambientC: Color(0xFFFFC247), // mango
+    accent: Color(0xFFFFB020), // yulduzcha
+    mint: Color(0xFF12B3A0), // mavjud / yangi
+    mintStrong: Color(0xFF0B7A6D),
   );
 
+  /// TUN — «Neon shirinlik»: chuqur binafsha fon, laym-neon urg'u.
   static const dark = AppColors(
-    background: Color(0xFF140D11),
-    surface: Color(0xFF241820),
-    textPrimary: Color(0xFFF7ECF0),
-    textSecondary: Color(0xFFCDB8C1),
-    primary: Color(0xFFF28DA8),
-    onPrimary: Color(0xFF140D11),
-    secondary: Color(0xFF3B2630),
-    success: Color(0xFF86CC98),
-    error: Color(0xFFEF7A86),
-    border: Color(0xFF38252E),
-    skeletonBase: Color(0xFF2E1F27),
-    skeletonHighlight: Color(0xFF3B2A34),
-    shadow: Color(0x59000000),
-    shadowStrong: Color(0x8C000000),
-    glow: Color(0x33B0264A),
-    cta: Color(0xFFB0264A),
-    onCta: Color(0xFFFFFFFF),
-    ambientA: Color(0xFF6A1030),
-    ambientB: Color(0xFF1F4A3B),
-    ambientC: Color(0xFF5A3A1E),
-    accent: Color(0xFFE5A85A),
-    mint: Color(0xFF8FD1A0),
+    background: Color(0xFF0B0A14),
+    surface: Color(0xFF17152A),
+    textPrimary: Color(0xFFF4F1FF),
+    textSecondary: Color(0xFFB8B2D6),
+    primary: Color(0xFFB8FF6B),
+    onPrimary: Color(0xFF10230A),
+    secondary: Color(0xFF26223F),
+    success: Color(0xFF5BE3A0),
+    error: Color(0xFFFF6B7A),
+    border: Color(0xFF2A2646),
+    skeletonBase: Color(0xFF1D1A33),
+    skeletonHighlight: Color(0xFF2B2748),
+    shadow: Color(0x66000000),
+    shadowStrong: Color(0x99000000),
+    glow: Color(0x2EB8FF6B),
+    cta: Color(0xFFB8FF6B),
+    onCta: Color(0xFF10230A),
+    ambientA: Color(0xFF6D3BFF), // uzum
+    ambientB: Color(0xFFFF3EA5), // magenta
+    ambientC: Color(0xFF19D3C5), // firuza
+    accent: Color(0xFFFFC247),
+    mint: Color(0xFF19D3C5),
+    mintStrong: Color(0xFF19D3C5),
   );
 
   @override
@@ -135,6 +142,7 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? ambientC,
     Color? accent,
     Color? mint,
+    Color? mintStrong,
   }) {
     return AppColors(
       background: background ?? this.background,
@@ -159,6 +167,7 @@ class AppColors extends ThemeExtension<AppColors> {
       ambientC: ambientC ?? this.ambientC,
       accent: accent ?? this.accent,
       mint: mint ?? this.mint,
+      mintStrong: mintStrong ?? this.mintStrong,
     );
   }
 
@@ -189,6 +198,7 @@ class AppColors extends ThemeExtension<AppColors> {
       ambientC: l(ambientC, other.ambientC),
       accent: l(accent, other.accent),
       mint: l(mint, other.mint),
+      mintStrong: l(mintStrong, other.mintStrong),
     );
   }
 }

@@ -105,7 +105,7 @@ class ProductCard extends StatelessWidget {
                               l10n.piecesCount(product.stock),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: text.labelSmall?.copyWith(color: c.mint),
+                              style: text.labelSmall?.copyWith(color: c.mintStrong),
                             ),
                           ),
                         ),

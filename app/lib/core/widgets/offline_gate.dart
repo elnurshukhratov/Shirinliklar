@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../l10n/l10n_extensions.dart';
 import '../network/connectivity_provider.dart';
+import '../theme/app_colors.dart';
 import 'state_views.dart';
 
 /// Internet yo'q bo'lsa, ilovaning butun ekrani yopiladi va ulanish qaytganda o'zi ochiladi.
@@ -21,6 +22,8 @@ class OfflineGate extends ConsumerWidget {
         if (offline)
           Positioned.fill(
             child: Scaffold(
+              // Sahifalar shaffof bo'lgani uchun offline ekran o'z fonini oladi.
+              backgroundColor: context.colors.background,
               body: SafeArea(
                 child: ErrorState(
                   title: context.l10n.errorNetworkTitle,

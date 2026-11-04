@@ -56,7 +56,7 @@ class GlassNavigationBar extends StatelessWidget {
                 Positioned.fill(
                   child: AnimatedAlign(
                     duration: AppMotion.of(context, const Duration(milliseconds: 360)),
-                    curve: AppMotion.spring,
+                    curve: AppMotion.springCurve,
                     alignment: Alignment(align, 0),
                     child: FractionallySizedBox(
                       widthFactor: 1 / n,
@@ -99,7 +99,7 @@ class GlassNavigationBar extends StatelessWidget {
                                 AnimatedScale(
                                   scale: i == selectedIndex ? 1.1 : 1.0,
                                   duration: AppMotion.of(context, const Duration(milliseconds: 280)),
-                                  curve: AppMotion.spring,
+                                  curve: AppMotion.springCurve,
                                   child: Icon(
                                     i == selectedIndex ? items[i].selectedIcon : items[i].icon,
                                     size: 24,

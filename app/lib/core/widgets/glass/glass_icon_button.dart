@@ -61,7 +61,7 @@ class _GlassIconButtonState extends State<GlassIconButton> {
           child: AnimatedScale(
             scale: scale,
             duration: AppMotion.of(context, AppMotion.fast),
-            curve: _pressed ? AppMotion.curve : AppMotion.spring,
+            curve: _pressed ? AppMotion.curve : AppMotion.springCurve,
             child: Stack(
               clipBehavior: Clip.none,
               children: [

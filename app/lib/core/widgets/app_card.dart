@@ -34,7 +34,7 @@ class _AppCardState extends State<AppCard> {
     return AnimatedScale(
       scale: pressed ? 0.985 : 1,
       duration: AppMotion.of(context, AppMotion.fast),
-      curve: pressed ? AppMotion.curve : AppMotion.spring,
+      curve: pressed ? AppMotion.curve : AppMotion.springCurve,
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: AppRadius.borderCard,

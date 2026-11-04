@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import 'glass/glass_container.dart';
 
-/// Brend belgisi: olcha shisha plitka ichida makaron (ikki qobiq va pistachio krem).
+/// Brend belgisi: rangli shisha plitka ichida makaron (ikki qobiq va mint krem).
 /// Standart "tort" ikonkasi o'rniga ishlatiladi — butun ilovada bitta yagona belgi.
 class BrandMark extends StatelessWidget {
   const BrandMark({super.key, this.size = 96, this.shadow = true});
@@ -26,7 +26,7 @@ class BrandMark extends StatelessWidget {
         child: SizedBox(
           width: size,
           height: size,
-          child: CustomPaint(painter: _MacaronPainter(cream: c.mint)),
+          child: CustomPaint(painter: _MacaronPainter(cream: c.mint, glint: c.primary)),
         ),
       ),
     );
@@ -34,9 +34,10 @@ class BrandMark extends StatelessWidget {
 }
 
 class _MacaronPainter extends CustomPainter {
-  _MacaronPainter({required this.cream});
+  _MacaronPainter({required this.cream, required this.glint});
 
   final Color cream;
+  final Color glint;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -66,7 +67,7 @@ class _MacaronPainter extends CustomPainter {
     canvas.drawRRect(filling, Paint()..color = cream);
 
     // Yuqori qobiqdagi kichik yaltirash.
-    final glint = Paint()
+    final glintPaint = Paint()
       ..color = Colors.white.withValues(alpha: 0.9)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
@@ -76,10 +77,10 @@ class _MacaronPainter extends CustomPainter {
       3.4,
       1.2,
       false,
-      glint..color = const Color(0xFFA3173F).withValues(alpha: 0.28),
+      glintPaint..color = glint.withValues(alpha: 0.28),
     );
   }
 
   @override
-  bool shouldRepaint(_MacaronPainter old) => old.cream != cream;
+  bool shouldRepaint(_MacaronPainter old) => old.cream != cream || old.glint != glint;
 }

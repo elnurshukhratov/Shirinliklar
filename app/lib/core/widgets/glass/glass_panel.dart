@@ -151,7 +151,7 @@ class GlassSegmented<T> extends StatelessWidget {
             children: [
               AnimatedPositioned(
                 duration: AppMotion.of(context, const Duration(milliseconds: 320)),
-                curve: AppMotion.spring,
+                curve: AppMotion.springCurve,
                 left: inset + thumbW * selectedIndex,
                 top: inset,
                 width: thumbW,

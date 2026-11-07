@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_motion.dart';
 import '../theme/app_tokens.dart';
-import 'app_card.dart';
 
 /// Yuklanish vaqtidagi yengil kulrang blok. Harakat kamaytirilganda qimirlamaydi.
 class Skeleton extends StatefulWidget {
@@ -70,36 +69,39 @@ class _SkeletonState extends State<Skeleton> with SingleTickerProviderStateMixin
   }
 }
 
-/// Mahsulot kartasi yuklanayotgandagi umumiy ko'rinish.
+/// Mahsulot kartasi yuklanayotgandagi ko'rinish: to'liq rasm (radius 28) va nom ostida ikki qator.
+/// [aspectRatio] masonry uchun navbatma-navbat 0.8 (4:5) va 1 (1:1).
 class SkeletonCard extends StatelessWidget {
-  const SkeletonCard({super.key});
+  const SkeletonCard({super.key, this.aspectRatio = 1});
+
+  final double aspectRatio;
 
   @override
   Widget build(BuildContext context) {
-    return const AppCard(
-      padding: EdgeInsets.zero,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const AspectRatio(
-            aspectRatio: 1,
-            child: const SizedBox.expand(
-              child: const Skeleton(height: double.infinity, borderRadius: BorderRadius.zero),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        AspectRatio(
+          aspectRatio: aspectRatio,
+          child: const SizedBox.expand(
+            child: Skeleton(
+              height: double.infinity,
+              borderRadius: BorderRadius.all(Radius.circular(AppRadius.panel)),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(AppSpacing.md),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Skeleton(height: 14),
-                SizedBox(height: AppSpacing.sm),
-                Skeleton(width: 64, height: 14),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(height: AppSpacing.sm),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4),
+          child: Skeleton(height: 14),
+        ),
+        const SizedBox(height: 6),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4),
+          child: Skeleton(width: 72, height: 14),
+        ),
+      ],
     );
   }
 }

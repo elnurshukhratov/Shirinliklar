@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app_colors.dart';
+import 'app_motion.dart';
 import 'app_tokens.dart';
 import 'app_typography.dart';
 
@@ -40,8 +41,21 @@ class AppTheme {
       canvasColor: c.background,
       textTheme: textTheme,
       dividerColor: c.border,
-      // Android 12+ ning o'z "sparkle" to'lqini (Material 3 Expressive hissi).
-      splashFactory: InkSparkle.splashFactory,
+      // Yumshoq, past kontrastli to'lqin (yorqin "sparkle" emas); asosiy tugmalarda o'z jelly effekti bor.
+      splashFactory: InkRipple.splashFactory,
+      splashColor: c.primary.withValues(alpha: 0.10),
+      highlightColor: c.primary.withValues(alpha: 0.05),
+      hoverColor: c.primary.withValues(alpha: 0.04),
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: SoftPageTransitionsBuilder(),
+          TargetPlatform.iOS: SoftPageTransitionsBuilder(),
+          TargetPlatform.linux: SoftPageTransitionsBuilder(),
+          TargetPlatform.macOS: SoftPageTransitionsBuilder(),
+          TargetPlatform.windows: SoftPageTransitionsBuilder(),
+          TargetPlatform.fuchsia: SoftPageTransitionsBuilder(),
+        },
+      ),
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: c.primary,
         selectionColor: c.primary.withValues(alpha: 0.28),
@@ -138,6 +152,7 @@ class AppTheme {
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: c.primary,
         linearTrackColor: c.border,
+        circularTrackColor: Colors.transparent,
       ),
       switchTheme: SwitchThemeData(
         thumbColor: const WidgetStatePropertyAll(Colors.white),
@@ -145,6 +160,56 @@ class AppTheme {
           (states) => states.contains(WidgetState.selected) ? c.cta : c.border,
         ),
         trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
+      ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected) ? c.cta : Colors.transparent,
+        ),
+        checkColor: WidgetStatePropertyAll(c.onCta),
+        side: BorderSide(color: c.textSecondary, width: 1.5),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+      ),
+      radioTheme: RadioThemeData(
+        fillColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.selected) ? c.cta : c.textSecondary,
+        ),
+      ),
+      sliderTheme: SliderThemeData(
+        activeTrackColor: c.cta,
+        inactiveTrackColor: c.border,
+        thumbColor: c.cta,
+      ),
+    );
+  }
+}
+
+
+/// Sahifa o'tishi (Navigator ishlatiladigan marshrutlar uchun): eski sahifa tez so'nadi,
+/// yangisi ozgina pastdan ko'tarilib paydo bo'ladi — shaffof sahifalarning matni
+/// bir-birining ustida ko'rinib qolmaydi.
+class SoftPageTransitionsBuilder extends PageTransitionsBuilder {
+  const SoftPageTransitionsBuilder();
+
+  @override
+  Widget buildTransitions<T>(
+    PageRoute<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    if (AppMotion.reduced(context)) return child;
+    final enter = CurvedAnimation(parent: animation, curve: AppMotion.smoothCurve);
+    final fadeIn = CurvedAnimation(parent: animation, curve: const Interval(0.4, 1.0));
+    final fadeOut = CurvedAnimation(parent: secondaryAnimation, curve: const Interval(0.0, 0.4));
+    return FadeTransition(
+      opacity: Tween<double>(begin: 1, end: 0).animate(fadeOut),
+      child: FadeTransition(
+        opacity: fadeIn,
+        child: SlideTransition(
+          position: Tween<Offset>(begin: const Offset(0, 0.035), end: Offset.zero).animate(enter),
+          child: child,
+        ),
       ),
     );
   }

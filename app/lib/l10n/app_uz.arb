@@ -11,6 +11,7 @@
   "commonConfirm": "Tasdiqlash",
   "commonBack": "Orqaga",
   "commonSearch": "Qidirish",
+  "commonDone": "Tayyor",
   "commonLoading": "Yuklanmoqda…",
   "fieldRequired": "Bu maydonni to'ldiring",
   "emptyTitle": "Hozircha bo'sh",
@@ -623,5 +624,46 @@
   "credentialsNewPassword": "Yangi parol (ixtiyoriy)",
   "credentialsSaved": "Login va parol yangilandi",
   "errorWrongPassword": "Joriy parol noto'g'ri.",
-  "errorStaffNotRegistered": "Bu email bilan ro'yxatdan o'tgan foydalanuvchi topilmadi. Avval u ilovada ro'yxatdan o'tsin."
+    "errorStaffNotRegistered": "Bu email bilan ro'yxatdan o'tgan foydalanuvchi topilmadi. Avval u ilovada ro'yxatdan o'tsin.",
+  "dockCartSummary": "{count} ta · {total}",
+  "@dockCartSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "authContinue": "Davom etish",
+  "authStepInfoTitle": "Ma'lumotlaringiz",
+  "authStepUsernameTitle": "Username tanlang",
+  "authStepUsernameHint": "Kamida 4 ta belgi. Keyin shu username bilan kirasiz.",
+  "authStepPasswordTitle": "Parol yarating",
+  "authUsernameInvalid": "4–24 ta belgi: lotin harflari, raqam, _ va .",
+   "authStepProgress": "{current}-qadam, jami {total} ta",
+  "@authStepProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGreeting": "Salom, {name}!",
+  "@homeGreeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homeGreetingGuest": "Salom!",
+  "homeAddressEmpty": "Manzilni kiriting",
+  "homeNotifications": "Bildirishnomalar",
+  "productQuantityMinus": "Kamaytirish",
+  "productQuantityPlus": "Ko'paytirish"
 }

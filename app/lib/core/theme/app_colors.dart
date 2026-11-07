@@ -73,15 +73,15 @@ class AppColors extends ThemeExtension<AppColors> {
     primary: Color(0xFFC8245A),
     onPrimary: Color(0xFFFFFFFF),
     secondary: Color(0xFFFFE9EF),
-    success: Color(0xFF1A8050), // 1F8F5A dan to'qroq: matn kontrasti >= 4.5:1
-    error: Color(0xFFD13535), // D93B3B dan to'qroq: matn kontrasti >= 4.5:1
+    success: Color(0xFF1F8F5A),
+    error: Color(0xFFD93B3B),
     border: Color(0xFFEFE6EA),
     skeletonBase: Color(0xFFF3EBEE),
     skeletonHighlight: Color(0xFFFFFFFF),
     shadow: Color(0x1A1E1B3A),
     shadowStrong: Color(0x331E1B3A),
     glow: Color(0x00000000),
-    cta: Color(0xFFD92A62),
+    cta: Color(0xFFCC2459),
     onCta: Color(0xFFFFFFFF),
     ambientA: Color(0xFFFF6B8B), // qulupnay
     ambientB: Color(0xFF7CC8FF), // osmon

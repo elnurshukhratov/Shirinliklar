@@ -75,7 +75,13 @@ class _MyOrdersScreenState extends ConsumerState<MyOrdersScreen> {
         child: ListView.separated(
           controller: _scroll,
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.all(AppSpacing.lg),
+          // Pastki bo'sh joy: dock balandligicha (shell MediaQuery'ga qo'shgan).
+          padding: EdgeInsets.fromLTRB(
+            AppSpacing.lg,
+            AppSpacing.lg,
+            AppSpacing.lg,
+            AppSpacing.lg + MediaQuery.paddingOf(context).bottom,
+          ),
           itemCount: state.items.length + (state.loadingMore ? 1 : 0),
           separatorBuilder: (_, __) => const SizedBox(height: AppSpacing.md),
           itemBuilder: (context, i) {

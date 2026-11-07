@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'core/l10n/locale_provider.dart';
 import 'core/router/app_router.dart';
+import 'core/theme/app_motion.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_mode_provider.dart';
 import 'core/widgets/glass/ambient_background.dart';
@@ -44,7 +45,7 @@ class App extends ConsumerWidget {
       darkTheme: AppTheme.dark(),
       themeMode: themeMode,
       themeAnimationDuration: reduceMotion ? Duration.zero : const Duration(milliseconds: 250),
-      themeAnimationCurve: Curves.easeOut,
+      themeAnimationCurve: AppMotion.smoothCurve,
       locale: locale,
       supportedLocales: AppLocales.supported,
       localizationsDelegates: const [

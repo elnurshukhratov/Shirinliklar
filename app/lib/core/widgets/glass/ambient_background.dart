@@ -24,6 +24,22 @@ class _AmbientBackgroundState extends State<AmbientBackground> with SingleTicker
   // Sikl: 26 s (20–30 s oralig'ida).
   late final AnimationController _drift = AnimationController(vsync: this, duration: const Duration(seconds: 26));
 
+  /// Nurlar 26 soniyada bir aylanadi: 60 kadrda chizish ortiqcha va shisha (BackdropFilter) qatlamlari
+  /// har safar qayta xiralashtirilishiga olib keladi. Shu sababli faqat ~15 kadr/s da qayta chiziladi.
+  static const int _stepsPerCycle = 26 * 15;
+  late final ValueNotifier<int> _step = ValueNotifier<int>(0);
+
+  void _onTick() {
+    final s = (_drift.value * _stepsPerCycle).floor();
+    if (s != _step.value) _step.value = s;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _drift.addListener(_onTick);
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -37,7 +53,9 @@ class _AmbientBackgroundState extends State<AmbientBackground> with SingleTicker
 
   @override
   void dispose() {
+    _drift.removeListener(_onTick);
     _drift.dispose();
+    _step.dispose();
     super.dispose();
   }
 
@@ -54,6 +72,7 @@ class _AmbientBackgroundState extends State<AmbientBackground> with SingleTicker
           child: CustomPaint(
             painter: _OrbsPainter(
               progress: _drift,
+              repaint: _step,
               background: c.background,
               a: c.ambientA,
               b: c.ambientB,
@@ -75,13 +94,14 @@ class _AmbientBackgroundState extends State<AmbientBackground> with SingleTicker
 class _OrbsPainter extends CustomPainter {
   _OrbsPainter({
     required this.progress,
+    required Listenable repaint,
     required this.background,
     required this.a,
     required this.b,
     required this.cc,
     required this.d,
     required this.dark,
-  }) : super(repaint: progress);
+  }) : super(repaint: repaint);
 
   final Animation<double> progress;
   final Color background;

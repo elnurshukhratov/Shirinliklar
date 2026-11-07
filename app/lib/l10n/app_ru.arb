@@ -11,6 +11,7 @@
   "commonConfirm": "Подтвердить",
   "commonBack": "Назад",
   "commonSearch": "Поиск",
+  "commonDone": "Готово",
   "commonLoading": "Загрузка…",
   "fieldRequired": "Заполните это поле",
   "emptyTitle": "Пока пусто",
@@ -522,5 +523,19 @@
   "credentialsNewPassword": "Новый пароль (необязательно)",
   "credentialsSaved": "Логин и пароль обновлены",
   "errorWrongPassword": "Текущий пароль неверен.",
-  "errorStaffNotRegistered": "Пользователь с таким email не найден. Пусть сначала зарегистрируется в приложении."
+   "errorStaffNotRegistered": "Пользователь с таким email не найден. Пусть сначала зарегистрируется в приложении.",
+  "dockCartSummary": "{count} шт. · {total}",
+  "authContinue": "Продолжить",
+  "authStepInfoTitle": "Ваши данные",
+  "authStepUsernameTitle": "Придумайте username",
+  "authStepUsernameHint": "Минимум 4 символа. Дальше вы будете входить с этим username.",
+  "authStepPasswordTitle": "Создайте пароль",
+  "authUsernameInvalid": "4–24 символа: латиница, цифры, _ и .",
+  "authStepProgress": "Шаг {current} из {total}",
+  "homeGreeting": "Привет, {name}!",
+  "homeGreetingGuest": "Привет!",
+  "homeAddressEmpty": "Укажите адрес",
+  "homeNotifications": "Уведомления",
+  "productQuantityMinus": "Уменьшить",
+  "productQuantityPlus": "Увеличить"
 }

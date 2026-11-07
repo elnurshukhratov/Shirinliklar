@@ -42,6 +42,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get commonSearch => 'Поиск';
 
   @override
+  String get commonDone => 'Готово';
+
+  @override
   String get commonLoading => 'Загрузка…';
 
   @override
@@ -1428,4 +1431,33 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get errorStaffNotRegistered =>
       'Пользователь с таким email не найден. Пусть сначала зарегистрируется в приложении.';
+
+  @override
+  String dockCartSummary(int count, String total) {
+    return '$count шт. · $total';
+  }
+
+  @override
+  String get authContinue => 'Продолжить';
+
+  @override
+  String get authStepInfoTitle => 'Ваши данные';
+
+  @override
+  String get authStepUsernameTitle => 'Придумайте username';
+
+  @override
+  String get authStepUsernameHint =>
+      'Минимум 4 символа. Дальше вы будете входить с этим username.';
+
+  @override
+  String get authStepPasswordTitle => 'Создайте пароль';
+
+  @override
+  String get authUsernameInvalid => '4–24 символа: латиница, цифры, _ и .';
+
+  @override
+  String authStepProgress(int current, int total) {
+    return 'Шаг $current из $total';
+  }
 }

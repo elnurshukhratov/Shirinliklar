@@ -59,7 +59,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(l10n.profileTitle)),
       body: ListView(
-        padding: const EdgeInsets.all(AppSpacing.lg),
+        // Pastki bo'sh joy: dock balandligicha (shell MediaQuery'ga qo'shgan).
+        padding: EdgeInsets.fromLTRB(
+          AppSpacing.lg,
+          AppSpacing.lg,
+          AppSpacing.lg,
+          AppSpacing.lg + MediaQuery.paddingOf(context).bottom,
+        ),
         children: [
           Center(
             child: Container(
@@ -126,13 +132,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 _ActionTile(
                   icon: Icons.receipt_long_outlined,
                   label: l10n.myOrdersTitle,
-                  onTap: () => context.push(AppRoutes.myOrders),
+                  onTap: () => context.go(AppRoutes.myOrders),
                 ),
                 Divider(height: 1, color: c.border),
                 _ActionTile(
                   icon: Icons.favorite_border_rounded,
                   label: l10n.favoritesTitle,
-                  onTap: () => context.push(AppRoutes.favorites),
+                  onTap: () => context.go(AppRoutes.favorites),
                 ),
                 Divider(height: 1, color: c.border),
                 _ActionTile(

@@ -29,9 +29,9 @@ class GlassPanel extends StatelessWidget {
     }
 
     return GlassContainer(
-      level: GlassLevel.floating,
+      level: GlassLevel.panel,
       blur: false,
-      borderRadius: AppRadius.borderCard,
+      borderRadius: AppRadius.borderPanel,
       child: Padding(
         padding: padding,
         child: Column(mainAxisSize: MainAxisSize.min, children: rows),

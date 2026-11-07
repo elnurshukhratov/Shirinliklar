@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../../theme/app_motion.dart';
 
-/// Bosilganda yengil kichrayib, qo'yib yuborilganda "sakrab" qaytadigan o'ram.
+/// Bosilganda yengil kichrayib, qo'yib yuborilganda prujina (snappy) bilan qaytadigan o'ram.
 /// Faqat teginishga javobni beradi (ripple yo'q): ichidagi vidjetning o'zi ham
 /// bosiladigan bo'lsa, uni shu o'ramga o'tkazmang.
 class Pressable extends StatefulWidget {
@@ -47,11 +47,14 @@ class _PressableState extends State<Pressable> {
               widget.onTap!();
             }
           : null,
-      child: AnimatedScale(
-        scale: active ? widget.scale : 1,
-        duration: AppMotion.of(context, const Duration(milliseconds: 160)),
-        curve: active ? AppMotion.curve : AppMotion.springCurve,
+      child: SpringBuilder(
+        value: active ? 1 : 0,
+        description: AppMotion.snappy,
         child: widget.child,
+        builder: (context, v, child) => Transform.scale(
+          scale: 1 - (1 - widget.scale) * v,
+          child: child,
+        ),
       ),
     );
   }

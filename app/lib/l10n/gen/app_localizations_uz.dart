@@ -42,6 +42,9 @@ class AppLocalizationsUz extends AppLocalizations {
   String get commonSearch => 'Qidirish';
 
   @override
+  String get commonDone => 'Tayyor';
+
+  @override
   String get commonLoading => 'Yuklanmoqda…';
 
   @override
@@ -1441,4 +1444,34 @@ class AppLocalizationsUz extends AppLocalizations {
   @override
   String get errorStaffNotRegistered =>
       'Bu email bilan ro\'yxatdan o\'tgan foydalanuvchi topilmadi. Avval u ilovada ro\'yxatdan o\'tsin.';
+
+  @override
+  String dockCartSummary(int count, String total) {
+    return '$count ta · $total';
+  }
+
+  @override
+  String get authContinue => 'Davom etish';
+
+  @override
+  String get authStepInfoTitle => 'Ma\'lumotlaringiz';
+
+  @override
+  String get authStepUsernameTitle => 'Username tanlang';
+
+  @override
+  String get authStepUsernameHint =>
+      'Kamida 4 ta belgi. Keyin shu username bilan kirasiz.';
+
+  @override
+  String get authStepPasswordTitle => 'Parol yarating';
+
+  @override
+  String get authUsernameInvalid =>
+      '4–24 ta belgi: lotin harflari, raqam, _ va .';
+
+  @override
+  String authStepProgress(int current, int total) {
+    return '$current-qadam, jami $total ta';
+  }
 }

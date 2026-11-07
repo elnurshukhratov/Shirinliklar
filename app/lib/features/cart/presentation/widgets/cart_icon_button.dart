@@ -10,6 +10,7 @@ import '../../../../core/widgets/glass/glass_icon_button.dart';
 import '../../application/cart_controller.dart';
 
 /// Savat belgisi: son oshganda belgi bir marta sekin kattalashib qaytadi, son silliq almashadi.
+/// Savat endi dock'dagi tab: shu tugma tabga o'tkazadi (go).
 class CartIconButton extends ConsumerStatefulWidget {
   const CartIconButton({super.key, this.overMedia = false});
 
@@ -53,7 +54,7 @@ class _CartIconButtonState extends ConsumerState<CartIconButton> with SingleTick
     return GlassIconButton(
       tooltip: context.l10n.cartTitle,
       overMedia: widget.overMedia,
-      onPressed: () => context.push(AppRoutes.cart),
+      onPressed: () => context.go(AppRoutes.cart),
       badge: AnimatedOpacity(
         duration: AppMotion.of(context, AppMotion.fast),
         opacity: count > 0 ? 1 : 0,

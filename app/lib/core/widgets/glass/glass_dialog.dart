@@ -93,15 +93,16 @@ class GlassDialog extends StatelessWidget {
       duration: AppMotion.of(context, AppMotion.fast),
       padding: EdgeInsets.only(bottom: keyboard),
       child: SafeArea(
+        bottom: keyboard == 0,
         child: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl, vertical: AppSpacing.lg),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 360),
               child: GlassContainer(
-                level: GlassLevel.sheet,
+                level: GlassLevel.panel,
                 overMedia: true,
-                borderRadius: BorderRadius.circular(32),
+                borderRadius: AppRadius.borderPanel,
                 child: Material(
                   type: MaterialType.transparency,
                   child: Semantics(

@@ -9,7 +9,7 @@ import '../../cart/application/cart_controller.dart';
 import '../application/order_providers.dart';
 
 /// «Qayta buyurtma»: buyurtmadagi mahsulotlarni hozirgi narx va mavjudlik bilan savatga qaytaradi
-/// va savatni ochadi. Tugagan mahsulotlar qo'shilmaydi, bu haqda xabar beriladi.
+/// va savat tabini ochadi. Tugagan mahsulotlar qo'shilmaydi, bu haqda xabar beriladi.
 Future<void> reorderToCart(BuildContext context, WidgetRef ref, String orderId) async {
   final l10n = context.l10n;
   final lang = Localizations.localeOf(context).languageCode;
@@ -40,7 +40,7 @@ Future<void> reorderToCart(BuildContext context, WidgetRef ref, String orderId) 
       message = l10n.orderReorderDone;
     }
     messenger.showSnackBar(SnackBar(content: Text(message)));
-    router.push(AppRoutes.cart);
+    router.go(AppRoutes.cart);
   } catch (e) {
     messenger.showSnackBar(SnackBar(content: Text(describeError(l10n, e).message)));
   }

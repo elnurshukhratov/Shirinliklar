@@ -9,14 +9,15 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_tokens.dart';
 import '../../../core/widgets/app_badge.dart';
 import '../../../core/widgets/app_button.dart';
-import '../../../core/widgets/app_card.dart';
 import '../../admin/presentation/widgets/confirm_dialog.dart';
 import '../../catalog/domain/catalog_models.dart';
+import '../../catalog/presentation/widgets/catalog_format.dart';
 import '../application/review_providers.dart';
 import '../domain/review_models.dart';
 import 'widgets/review_tile.dart';
 
-/// Mahsulot sahifasidagi sharhlar bo'limi: o'z sharhi, sharh qoldirish tugmasi va boshqalarning izohlari.
+/// Mahsulot sahifasidagi sharhlar bo'limi (shisha varaq ichida): sarlavha va o'rtacha baho,
+/// o'z sharhi, sharh qoldirish tugmasi va boshqalarning izohlari.
 class ProductReviewsSection extends ConsumerStatefulWidget {
   const ProductReviewsSection({super.key, required this.product});
 
@@ -71,15 +72,41 @@ class _ProductReviewsSectionState extends ConsumerState<ProductReviewsSection> {
     final list = ref.watch(productReviewsProvider(_productId));
     final own = mine?.review;
     final others = list.items.where((r) => r.id != own?.id).toList();
+    final product = widget.product;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(l10n.reviewsTitle, style: text.titleMedium),
+        Row(
+          children: [
+            Expanded(child: Text(l10n.reviewsTitle, style: text.titleMedium)),
+            if (product.reviewsCount > 0)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                  color: c.accent.withValues(alpha: 0.16),
+                  borderRadius: AppRadius.borderPill,
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.star_rounded, size: 16, color: c.accent),
+                    const SizedBox(width: 4),
+                    Text(formatRating(context, product.averageRating), style: text.labelMedium),
+                  ],
+                ),
+              ),
+          ],
+        ),
         const SizedBox(height: AppSpacing.md),
         if (own != null)
-          AppCard(
+          Container(
+            width: double.infinity,
             padding: const EdgeInsets.all(AppSpacing.lg),
+            decoration: BoxDecoration(
+              color: c.secondary.withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(AppRadius.card - 4),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -158,7 +185,7 @@ class _ProductReviewsSectionState extends ConsumerState<ProductReviewsSection> {
               text: r.text,
               adminReply: r.adminReply,
             ),
-            const Divider(height: AppSpacing.xl),
+            Divider(height: AppSpacing.xl, color: c.border.withValues(alpha: 0.7)),
           ],
           if (list.hasMore)
             Align(

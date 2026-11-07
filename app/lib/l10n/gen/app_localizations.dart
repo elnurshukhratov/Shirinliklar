@@ -166,6 +166,12 @@ abstract class AppLocalizations {
   /// **'Qidirish'**
   String get commonSearch;
 
+  /// No description provided for @commonDone.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tayyor'**
+  String get commonDone;
+
   /// No description provided for @commonLoading.
   ///
   /// In uz, this message translates to:
@@ -2733,6 +2739,54 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Bu email bilan ro\'yxatdan o\'tgan foydalanuvchi topilmadi. Avval u ilovada ro\'yxatdan o\'tsin.'**
   String get errorStaffNotRegistered;
+
+  /// No description provided for @dockCartSummary.
+  ///
+  /// In uz, this message translates to:
+  /// **'{count} ta · {total}'**
+  String dockCartSummary(int count, String total);
+
+  /// No description provided for @authContinue.
+  ///
+  /// In uz, this message translates to:
+  /// **'Davom etish'**
+  String get authContinue;
+
+  /// No description provided for @authStepInfoTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ma\'lumotlaringiz'**
+  String get authStepInfoTitle;
+
+  /// No description provided for @authStepUsernameTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Username tanlang'**
+  String get authStepUsernameTitle;
+
+  /// No description provided for @authStepUsernameHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kamida 4 ta belgi. Keyin shu username bilan kirasiz.'**
+  String get authStepUsernameHint;
+
+  /// No description provided for @authStepPasswordTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parol yarating'**
+  String get authStepPasswordTitle;
+
+  /// No description provided for @authUsernameInvalid.
+  ///
+  /// In uz, this message translates to:
+  /// **'4–24 ta belgi: lotin harflari, raqam, _ va .'**
+  String get authUsernameInvalid;
+
+  /// No description provided for @authStepProgress.
+  ///
+  /// In uz, this message translates to:
+  /// **'{current}-qadam, jami {total} ta'**
+  String authStepProgress(int current, int total);
 }
 
 class _AppLocalizationsDelegate

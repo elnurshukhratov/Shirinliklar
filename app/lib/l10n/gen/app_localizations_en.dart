@@ -42,6 +42,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonSearch => 'Search';
 
   @override
+  String get commonDone => 'Done';
+
+  @override
   String get commonLoading => 'Loading…';
 
   @override
@@ -1436,4 +1439,34 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorStaffNotRegistered =>
       'No registered user with this email. They need to sign up in the app first.';
+
+  @override
+  String dockCartSummary(int count, String total) {
+    return '$count items · $total';
+  }
+
+  @override
+  String get authContinue => 'Continue';
+
+  @override
+  String get authStepInfoTitle => 'Your details';
+
+  @override
+  String get authStepUsernameTitle => 'Choose a username';
+
+  @override
+  String get authStepUsernameHint =>
+      'At least 4 characters. You will sign in with this username.';
+
+  @override
+  String get authStepPasswordTitle => 'Create a password';
+
+  @override
+  String get authUsernameInvalid =>
+      '4–24 characters: Latin letters, digits, _ and .';
+
+  @override
+  String authStepProgress(int current, int total) {
+    return 'Step $current of $total';
+  }
 }

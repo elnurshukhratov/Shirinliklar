@@ -3,11 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/error_messages.dart';
 import '../../../core/l10n/l10n_extensions.dart';
-import '../../../core/widgets/app_button.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_tokens.dart';
+import '../../../core/widgets/glass/pressable.dart';
 import '../application/push_service.dart';
 import '../application/stock_alert_providers.dart';
 
 /// Tugagan mahsulot sahifasida: «Mavjud bo'lganda xabar bering» (qayta bosilsa, obuna bekor bo'ladi).
+/// Yopishqoq shisha panelga mos pilyulasimon tugma: obuna bo'lmaganda CTA gradienti,
+/// obuna bo'lganda yashil ohangdagi yumshoq ko'rinish.
 class StockAlertButton extends ConsumerStatefulWidget {
   const StockAlertButton({super.key, required this.productId});
 
@@ -55,16 +59,70 @@ class _StockAlertButtonState extends ConsumerState<StockAlertButton> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final c = context.colors;
+    final text = Theme.of(context).textTheme;
     final async = ref.watch(stockAlertProvider(widget.productId));
     final subscribed = async.valueOrNull ?? false;
     final loading = _busy || (async.isLoading && !async.hasValue);
 
-    return AppButton(
-      label: subscribed ? l10n.stockAlertSubscribed : l10n.stockAlertNotifyMe,
-      icon: subscribed ? Icons.notifications_active_rounded : Icons.notifications_none_rounded,
-      variant: subscribed ? AppButtonVariant.secondary : AppButtonVariant.primary,
-      isLoading: loading,
-      onPressed: loading ? null : () => _toggle(subscribed),
+    final label = subscribed ? l10n.stockAlertSubscribed : l10n.stockAlertNotifyMe;
+    final fg = subscribed ? c.success : c.onCta;
+
+    return Semantics(
+      button: true,
+      enabled: !loading,
+      label: label,
+      excludeSemantics: true,
+      child: Pressable(
+        haptic: true,
+        scale: 0.97,
+        onTap: loading ? null : () => _toggle(subscribed),
+        child: Container(
+          height: 54,
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.lg),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            gradient: subscribed
+                ? null
+                : LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color.lerp(c.cta, Colors.white, 0.14)!, c.cta],
+                  ),
+            color: subscribed ? c.success.withValues(alpha: 0.16) : null,
+            borderRadius: AppRadius.borderPill,
+            border: subscribed ? Border.all(color: c.success.withValues(alpha: 0.5)) : null,
+            boxShadow: subscribed ? const [] : AppShadows.tinted(c.cta, strength: 0.32),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (loading)
+                SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2.4, color: fg),
+                )
+              else
+                Icon(
+                  subscribed ? Icons.notifications_active_rounded : Icons.notifications_none_rounded,
+                  size: 20,
+                  color: fg,
+                ),
+              const SizedBox(width: AppSpacing.sm),
+              Flexible(
+                child: Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: text.labelLarge?.copyWith(color: fg, fontSize: 15, fontWeight: FontWeight.w800),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

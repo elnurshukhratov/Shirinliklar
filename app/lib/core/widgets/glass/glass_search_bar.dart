@@ -6,6 +6,7 @@ import '../../theme/app_tokens.dart';
 import 'glass_container.dart';
 
 /// Pilyulasimon shisha qidiruv paneli. Matn kiritish va tozalash tugmasi bilan.
+/// [focusNode] berilsa, fokusni tashqaridan boshqarish mumkin (masalan, qidiruv sahifasi ochilganda).
 class GlassSearchBar extends StatefulWidget {
   const GlassSearchBar({
     super.key,
@@ -13,19 +14,23 @@ class GlassSearchBar extends StatefulWidget {
     required this.hint,
     this.onChanged,
     this.blur = false,
+    this.focusNode,
   });
 
   final TextEditingController controller;
   final String hint;
   final ValueChanged<String>? onChanged;
   final bool blur;
+  final FocusNode? focusNode;
 
   @override
   State<GlassSearchBar> createState() => _GlassSearchBarState();
 }
 
 class _GlassSearchBarState extends State<GlassSearchBar> {
-  final _focus = FocusNode();
+  late final FocusNode _focus = widget.focusNode ?? FocusNode();
+
+  bool get _ownsFocus => widget.focusNode == null;
 
   @override
   void initState() {
@@ -38,7 +43,7 @@ class _GlassSearchBarState extends State<GlassSearchBar> {
   void dispose() {
     widget.controller.removeListener(_onText);
     _focus.removeListener(_onText);
-    _focus.dispose();
+    if (_ownsFocus) _focus.dispose();
     super.dispose();
   }
 
@@ -60,50 +65,50 @@ class _GlassSearchBarState extends State<GlassSearchBar> {
             : const [],
       ),
       child: GlassContainer(
-      level: GlassLevel.floating,
-      blur: widget.blur,
-      borderRadius: AppRadius.borderPill,
-      child: SizedBox(
-        height: 52,
-        child: Row(
-          children: [
-            const SizedBox(width: AppSpacing.lg),
-            Icon(Icons.search_rounded, color: c.textSecondary),
-            const SizedBox(width: AppSpacing.sm),
-            Expanded(
-              child: TextField(
-                controller: widget.controller,
-                focusNode: _focus,
-                onChanged: widget.onChanged,
-                textInputAction: TextInputAction.search,
-                style: text.bodyLarge,
-                cursorColor: c.primary,
-                decoration: InputDecoration(
-                  hintText: widget.hint,
-                  hintStyle: text.bodyLarge?.copyWith(color: c.textSecondary),
-                  filled: false,
-                  isCollapsed: true,
-                  border: InputBorder.none,
-                  enabledBorder: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                  contentPadding: EdgeInsets.zero,
+        level: GlassLevel.floating,
+        blur: widget.blur,
+        borderRadius: AppRadius.borderPill,
+        child: SizedBox(
+          height: 52,
+          child: Row(
+            children: [
+              const SizedBox(width: AppSpacing.lg),
+              Icon(Icons.search_rounded, color: c.textSecondary),
+              const SizedBox(width: AppSpacing.sm),
+              Expanded(
+                child: TextField(
+                  controller: widget.controller,
+                  focusNode: _focus,
+                  onChanged: widget.onChanged,
+                  textInputAction: TextInputAction.search,
+                  style: text.bodyLarge,
+                  cursorColor: c.primary,
+                  decoration: InputDecoration(
+                    hintText: widget.hint,
+                    hintStyle: text.bodyLarge?.copyWith(color: c.textSecondary),
+                    filled: false,
+                    isCollapsed: true,
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.zero,
+                  ),
                 ),
               ),
-            ),
-            if (widget.controller.text.isNotEmpty)
-              IconButton(
-                tooltip: MaterialLocalizations.of(context).clearButtonTooltip,
-                icon: Icon(Icons.close_rounded, color: c.textSecondary, size: 20),
-                onPressed: () {
-                  widget.controller.clear();
-                  widget.onChanged?.call('');
-                },
-              )
-            else
-              const SizedBox(width: AppSpacing.lg),
-          ],
+              if (widget.controller.text.isNotEmpty)
+                IconButton(
+                  tooltip: MaterialLocalizations.of(context).clearButtonTooltip,
+                  icon: Icon(Icons.close_rounded, color: c.textSecondary, size: 20),
+                  onPressed: () {
+                    widget.controller.clear();
+                    widget.onChanged?.call('');
+                  },
+                )
+              else
+                const SizedBox(width: AppSpacing.lg),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }

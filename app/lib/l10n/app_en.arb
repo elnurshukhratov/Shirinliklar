@@ -11,6 +11,7 @@
   "commonConfirm": "Confirm",
   "commonBack": "Back",
   "commonSearch": "Search",
+  "commonDone": "Done",
   "commonLoading": "Loading…",
   "fieldRequired": "Please fill in this field",
   "emptyTitle": "Nothing here yet",
@@ -522,5 +523,19 @@
   "credentialsNewPassword": "New password (optional)",
   "credentialsSaved": "Username and password updated",
   "errorWrongPassword": "Current password is incorrect.",
-  "errorStaffNotRegistered": "No registered user with this email. They need to sign up in the app first."
+   "errorStaffNotRegistered": "No registered user with this email. They need to sign up in the app first.",
+  "dockCartSummary": "{count} items · {total}",
+  "authContinue": "Continue",
+  "authStepInfoTitle": "Your details",
+  "authStepUsernameTitle": "Choose a username",
+  "authStepUsernameHint": "At least 4 characters. You will sign in with this username.",
+  "authStepPasswordTitle": "Create a password",
+  "authUsernameInvalid": "4–24 characters: Latin letters, digits, _ and .",
+   "authStepProgress": "Step {current} of {total}",
+  "homeGreeting": "Hello, {name}!",
+  "homeGreetingGuest": "Hello!",
+  "homeAddressEmpty": "Add your address",
+  "homeNotifications": "Notifications",
+  "productQuantityMinus": "Decrease",
+  "productQuantityPlus": "Increase"
 }

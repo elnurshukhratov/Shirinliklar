@@ -75,7 +75,7 @@ class _GlassSwitchState extends State<GlassSwitch> {
                 ),
                 child: AnimatedAlign(
                   duration: d,
-                  curve: AppMotion.spring,
+                  curve: AppMotion.springCurve,
                   alignment: on ? Alignment.centerRight : Alignment.centerLeft,
                   child: AnimatedContainer(
                     duration: AppMotion.of(context, const Duration(milliseconds: 180)),
@@ -83,10 +83,10 @@ class _GlassSwitchState extends State<GlassSwitch> {
                     width: thumbW,
                     height: 26,
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
+                      gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Colors.white, Color(0xFFF1E9EC)],
+                        colors: [Colors.white, c.border],
                       ),
                       borderRadius: AppRadius.borderPill,
                       boxShadow: [

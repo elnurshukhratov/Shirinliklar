@@ -45,11 +45,12 @@ class AppMotion {
   }) =>
       SpringSimulation(desc, from, to, velocity, tolerance: const Tolerance(distance: 0.001, velocity: 0.01));
 
-  // ---- Eski egri chiziqlar (prujina kerak bo'lmagan implicit animatsiyalar uchun) ----
-  // Nomlar saqlangan: ularni ishlatadigan fayllar buzilmasin. Yangi kodda prujina ishlating.
+  // ---- Implicit animatsiyalar uchun egri chiziqlar (hammasi prujinadan) ----
+  // Nomlar saqlangan: ularni ishlatadigan fayllar buzilmasin.
 
-  static const Curve curve = Curves.easeOutCubic;
-  static const Curve emphasized = Cubic(0.2, 0.0, 0.0, 1.0);
+  // Cubic egri chiziqlar olib tashlangan: eski nomlar endi "smooth" prujinasini beradi.
+  static const Curve curve = SpringCurve(smooth);
+  static const Curve emphasized = SpringCurve(smooth);
 
   /// Implicit animatsiyalar (AnimatedContainer va h.k.) uchun prujina egri chizig'i.
   /// Eski `AppMotion.spring` Curve'i shu nomga o'tgan: `spring(...)` endi simulyatsiya yaratadi.
@@ -72,9 +73,12 @@ class SpringCurve extends Curve {
 
   final SpringDescription description;
 
+  /// Simulyatsiya o'zgarmas (faqat x(t) o'qiladi): har kadrda qayta yaratilmasligi uchun keshlanadi.
+  static final Map<SpringDescription, SpringSimulation> _cache = {};
+
   @override
   double transformInternal(double t) {
-    final sim = SpringSimulation(description, 0, 1, 0);
+    final sim = _cache.putIfAbsent(description, () => SpringSimulation(description, 0, 1, 0));
     // t in 0..1 ni prujinaning joylashish vaqtiga (~0.7 s) cho'zamiz;
     // oxirgi 10% da qiymat aniq 1 ga silliq tortiladi.
     const settle = 0.7;
